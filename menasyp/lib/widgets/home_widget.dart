@@ -3,7 +3,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:menasyp/screens/notifications_screen.dart';
 import 'package:menasyp/services/google_sheet_api.dart';
 import 'package:menasyp/services/user_provider.dart';
+import 'package:menasyp/widgets/tunisia_guide.dart';
 import 'package:provider/provider.dart';
+
+import "package:menasyp/core/theme.dart";
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -62,7 +65,7 @@ class _SchedulePageState extends State<SchedulePage> {
     final isAdmin = user?['role'] == 'admin';
 
     return Scaffold(
-      backgroundColor: const Color(0xFF101010),
+      backgroundColor:  backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -116,7 +119,11 @@ class _SchedulePageState extends State<SchedulePage> {
           children: [
             IconButton(
               icon: const Icon(Icons.info_outline, color: Colors.white70, size: 26),
-              onPressed: () => _showInfoDialog(context),
+              onPressed: (){
+                 Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const TunisiaGuidePage())
+          );
+              },
             ),
             const SizedBox(width: 8),
             IconButton(

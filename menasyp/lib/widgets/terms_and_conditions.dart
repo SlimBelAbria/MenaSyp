@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-const Color primaryColor = Color(0xFF101010);       // Dark background
+import 'package:menasyp/core/theme.dart';
+     // Dark background
 const Color accentColor = Color(0xffFF2057);        // Pink-red highlight
 const Color textColor = Color.fromARGB(255, 255, 255, 255); // Pure white text
 
@@ -12,13 +12,13 @@ class TermsAndConditionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: primaryColor,
+        statusBarColor: backgroundColor,
         statusBarIconBrightness: Brightness.light,
       ),
     );
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: const Text(
           'Terms & Conditions',
@@ -30,7 +30,7 @@ class TermsAndConditionsPage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: primaryColor,
+        backgroundColor: backgroundColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20, color: textColor),

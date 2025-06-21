@@ -1,7 +1,6 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
-
+import "package:menasyp/core/theme.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -85,7 +84,7 @@ Future<void> _shareApp() async {
     final country = user?['Country'] ?? 'Not specified';
 
     return Scaffold(
-      backgroundColor: const Color(0xFF101010),
+      backgroundColor:  backgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:menasyp/services/notifications_provicder.dart';
 import 'package:iconsax/iconsax.dart';
 
+import "package:menasyp/core/theme.dart";
+
 class NotificationsWidget extends StatefulWidget {
   final String csvUrl;
   final String? userRole;
@@ -220,9 +222,9 @@ class NotificationsWidgetState extends State<NotificationsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF101010),
+      backgroundColor:  backgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF101010),
+        backgroundColor:  backgroundColor,
         title: const Text("Notifications", style: TextStyle(color: Colors.white)),
         foregroundColor: Colors.white,
         elevation: 0,

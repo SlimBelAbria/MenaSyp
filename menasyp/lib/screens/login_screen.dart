@@ -182,7 +182,7 @@ class _LoginWidgetState extends State<LoginScreen> {
       }
     } finally {
        final authService = Provider.of<AuthService>(context, listen: false);
-      final userProvider = Provider.of<UserProvider>(context, listen: false);
+     
         final success = await authService.login(
         _usernameController.text.trim(),
         _passwordController.text.trim(),

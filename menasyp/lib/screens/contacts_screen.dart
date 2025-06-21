@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import "package:menasyp/core/theme.dart";
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({Key? key}) : super(key: key);
@@ -150,9 +151,9 @@ class ContactsScreenState extends State<ContactsScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => Scaffold(
-          backgroundColor: const Color(0xFF101010),
+          backgroundColor:  backgroundColor,
           appBar: AppBar(
-            backgroundColor: const Color(0xFF101010),
+            backgroundColor:  backgroundColor,
             title: const Text('Contact Details'),
           ),
           body: Center(
@@ -306,12 +307,12 @@ class ContactsScreenState extends State<ContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? const Scaffold(backgroundColor: Color(0xFF101010), body: Center(child: CircularProgressIndicator()))
+        ? const Scaffold(backgroundColor: backgroundColor, body: Center(child: CircularProgressIndicator()))
         : Scaffold(
-            backgroundColor: const Color(0xFF101010),
+            backgroundColor:  backgroundColor,
             appBar: AppBar(
               title: const Text('Contacts', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600)),
-              backgroundColor: const Color(0xFF101010),
+              backgroundColor:  backgroundColor,
               elevation: 0,
               actions: [
                 IconButton(icon: const Icon(Icons.add, color: Color(0xffFF2057)), onPressed: _addNewContact),

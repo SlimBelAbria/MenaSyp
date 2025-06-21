@@ -8,6 +8,8 @@ import 'package:menasyp/services/user_provider.dart';
 import 'package:menasyp/widgets/home_widget.dart';
 import 'package:provider/provider.dart';
 
+import "package:menasyp/core/theme.dart";
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -41,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       onTap: _onTabTapped,
-      backgroundColor: const Color(0xFF101010),
+      backgroundColor:  backgroundColor,
       selectedItemColor: const Color(0xffFF2057),
       unselectedItemColor: const Color.fromARGB(255, 255, 255, 255),
       type: BottomNavigationBarType.fixed,
@@ -51,10 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
+    
   
     return Scaffold(
-      backgroundColor: const Color(0xFF101010),
+      backgroundColor:  backgroundColor,
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
