@@ -45,7 +45,7 @@ class NotificationsWidgetState extends State<NotificationsWidget> {
 
   Future<List<Map<String, String>>> _fetchNotifications() async {
     await NotificationsProvider.init();
-    final rows = await NotificationsProvider.usersheet!.values.allRows();
+    final rows = await NotificationsProvider.notificationsSheet!.values.allRows();
     if (rows.length <= 1) return [];
     return rows.sublist(1).map((row) => {
       "type": row[2],
@@ -55,7 +55,7 @@ class NotificationsWidgetState extends State<NotificationsWidget> {
   }
 
   Future<void> _deleteNotification(int index) async {
-    await NotificationsProvider.deleteRow(index + 2);
+    await NotificationsProvider.deleteNotification(index + 2);
     setState(() {
       notificationsFuture = _fetchNotifications();
     });

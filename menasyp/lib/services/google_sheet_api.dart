@@ -1,7 +1,7 @@
 import 'package:gsheets/gsheets.dart';
 
 class GoogleSheetApi {
-  static const _spreadsheetId = '1f83qoxLMt9wOHtMx_wCS7Nwmx-2RgQtsURNgtknr3bk';
+  static const csvId = '1f83qoxLMt9wOHtMx_wCS7Nwmx-2RgQtsURNgtknr3bk';
   static const _credentials = r'''
   {
     "type": "service_account",
@@ -17,47 +17,37 @@ class GoogleSheetApi {
     "universe_domain": "googleapis.com"
   }
   ''';
-  
+
   static final _gsheets = GSheets(_credentials);
-  
+
   static Worksheet? _notificationsSheet;
   static Worksheet? _scheduleSheet;
   static Worksheet? _feedbackSheet;
 
-  // Initialize all sheets
+  /// === INIT ALL SHEETS ===
   static Future<void> init() async {
     try {
-      final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);
-      
-      // Initialize all worksheets
+      final spreadsheet = await _gsheets.spreadsheet(csvId);
       _notificationsSheet = await _getWorksheet(spreadsheet, title: 'notifications');
       _scheduleSheet = await _getWorksheet(spreadsheet, title: 'schedule');
       _feedbackSheet = await _getWorksheet(spreadsheet, title: 'feedback');
-      
-      // Initialize feedback sheet headers if empty
+
+      // Initialize headers if empty
       final feedbackFirstRow = await _feedbackSheet?.values.row(1);
       if (feedbackFirstRow == null || feedbackFirstRow.isEmpty) {
-        await _feedbackSheet?.values.insertRow(1, [
-          'message', 'timestamp'
-        ]);
+        await _feedbackSheet?.values.insertRow(1, ['message', 'timestamp']);
       }
-      
-      // Initialize schedule sheet headers if empty
+
       final scheduleFirstRow = await _scheduleSheet?.values.row(1);
       if (scheduleFirstRow == null || scheduleFirstRow.isEmpty) {
-        await _scheduleSheet?.values.insertRow(1, [
-          'ID', 'Name', 'Description', 'Type', 'Time', 'Day'
-        ]);
+        await _scheduleSheet?.values.insertRow(1, ['ID', 'Name', 'Description', 'Type', 'Time', 'Day']);
       }
     } catch (e) {
       throw Exception('Failed to initialize Google Sheets: $e');
     }
   }
 
-  static Future<Worksheet> _getWorksheet(
-    Spreadsheet spreadsheet, {
-    required String title,
-  }) async {
+  static Future<Worksheet> _getWorksheet(Spreadsheet spreadsheet, {required String title}) async {
     try {
       return await spreadsheet.addWorksheet(title);
     } catch (e) {
@@ -65,34 +55,27 @@ class GoogleSheetApi {
     }
   }
 
-  // ========== FEEDBACK METHODS ==========
+  // ========== FEEDBACK ==========
   static Future<bool> addFeedback(String userId, String message) async {
     try {
-      
       if (_feedbackSheet == null) await init();
-      
       final row = {
-        
         'id': userId,
         'message': message,
         'timestamp': DateTime.now().toIso8601String(),
       };
-      
-      
       await _feedbackSheet!.values.map.appendRow(row);
       return true;
     } catch (e) {
-      
       return false;
     }
   }
 
-  // ========== NOTIFICATIONS METHODS ==========
+  // ========== NOTIFICATIONS ==========
   static Future<void> deleteNotification(int rowIndex) async {
     if (_notificationsSheet == null) return;
     final rowLength = await _notificationsSheet!.values.row(rowIndex).then((row) => row.length);
     if (rowLength == 0) return;
-
     await _notificationsSheet!.values.insertRow(rowIndex, List.filled(rowLength, ''));
   }
 
@@ -104,22 +87,19 @@ class GoogleSheetApi {
 
   static Future insertNotifications(List<Map<String, dynamic>> rowlist) async {
     if (_notificationsSheet == null) return;
-    
     for (var row in rowlist) {
       await _notificationsSheet!.values.map.appendRow(row);
     }
   }
 
-  // ========== SCHEDULE METHODS ==========
+  // ========== SCHEDULE ==========
   static Future<List<Map<String, dynamic>>> getEvents() async {
     if (_scheduleSheet == null) await init();
-    
     final data = await _scheduleSheet!.values.allRows();
     if (data.isEmpty) return [];
-    
+
     final headers = data[0];
     final events = <Map<String, dynamic>>[];
-    
     for (var i = 1; i < data.length; i++) {
       final row = data[i];
       if (row.length >= headers.length) {
@@ -130,14 +110,12 @@ class GoogleSheetApi {
         events.add(event);
       }
     }
-    
     return events;
   }
 
   static Future<bool> addEvent(Map<String, dynamic> event) async {
     try {
       if (_scheduleSheet == null) await init();
-      
       final id = DateTime.now().millisecondsSinceEpoch.toString();
       final row = [
         id,
@@ -147,11 +125,9 @@ class GoogleSheetApi {
         event['time'],
         event['day'],
       ];
-      
-      final result = await _scheduleSheet!.values.appendRow(row);
+      await _scheduleSheet!.values.appendRow(row);
       return true;
     } catch (e) {
-     
       return false;
     }
   }
@@ -159,14 +135,13 @@ class GoogleSheetApi {
   static Future<bool> deleteEvent(String id) async {
     try {
       if (_scheduleSheet == null) await init();
-      
       final data = await _scheduleSheet!.values.allRows();
       if (data.isEmpty) return false;
-      
+
       final headers = data[0];
       final idIndex = headers.indexWhere((h) => h.toLowerCase() == 'id');
       if (idIndex == -1) return false;
-      
+
       for (var i = 1; i < data.length; i++) {
         if (data[i][idIndex] == id) {
           await _scheduleSheet!.deleteRow(i + 1);
@@ -175,8 +150,42 @@ class GoogleSheetApi {
       }
       return false;
     } catch (e) {
-     
       return false;
+    }
+  }
+
+  // ========== NOTIFICATION METHODS from Code 2 (prefixed to avoid collision) ==========
+  static Future<void> notificationInsert(List<Map<String, dynamic>> rowList) async {
+    if (_notificationsSheet == null) return;
+    for (var row in rowList) {
+      await _notificationsSheet!.values.map.appendRow(row);
+    }
+  }
+
+  static Future<int> notificationGetRowCount() async {
+    if (_notificationsSheet == null) return 0;
+    final allRows = await _notificationsSheet!.values.allRows();
+    return allRows.length;
+  }
+
+  static Future<void> notificationDeleteRow(int rowIndex) async {
+    if (_notificationsSheet == null) return;
+    final rows = await _notificationsSheet!.values.allRows();
+    final totalRows = rows.length;
+
+    if (rowIndex < 1 || rowIndex > totalRows) {
+      print('⚠️ Cannot delete. Row index $rowIndex is out of bounds (1–$totalRows).');
+      return;
+    }
+
+    await _notificationsSheet!.deleteRow(rowIndex);
+  }
+
+  static Future<void> notificationInitSheet(Worksheet? sheet, List<String> headers) async {
+    if (sheet == null) return;
+    final firstRow = await sheet.values.row(1);
+    if (firstRow.isEmpty) {
+      await sheet.values.insertRow(1, headers);
     }
   }
 }
