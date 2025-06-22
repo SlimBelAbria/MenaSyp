@@ -1,35 +1,26 @@
-# MenaSyp
-MenaSyp App
-MenaSyp is a comprehensive Flutter mobile application designed to support the MENASYP 2025 event, held in Tunis, Tunisia. The app facilitates efficient event schedule management, real-time notifications, and user role-based features, providing a seamless experience for attendees and administrators alike.
+# MenaSyp# MenaSyp App
 
-Features
-Event Schedule: Browse detailed event schedules organized by day with time, description, and event type.
+MenaSyp is a Flutter mobile application built to support the MENASYP 2025 event in Tunis, Tunisia. The app helps attendees and administrators manage event schedules, receive real-time notifications, and access role-specific features, all in one place.
 
-Dynamic Notifications: Receive real-time notifications synced with a Google Sheets backend, with unread notification badges.
+## Features
 
-User Roles: Supports different user roles (e.g., admin) with tailored access such as adding or deleting events.
+- **Event Schedule:** Browse detailed schedules by day, including time, description, and event type.
+- **Dynamic Notifications:** Get real-time updates synced with a Google Sheets backend, with badges showing unread notifications.
+- **User Roles:** Different user roles (e.g., admin) with permissions to add or delete events.
+- **Interactive UI:** Easy day selector, clean event listings with icons, and smooth navigation.
+- **Local Persistence:** Caches notifications and preferences using SharedPreferences.
+- **Google Sheets Integration:** Fetches and updates data directly from Google Sheets to keep information current.
+- **Theming & Branding:** Custom dark theme aligned with MENASYP branding for a professional look.
 
-Interactive UI: Intuitive day selector, clean event listings with icons, and smooth navigation.
+## Tech Stack
 
-Local Persistence: Uses SharedPreferences for caching notifications and user preferences.
+- Flutter & Dart  
+- Provider for state management  
+- SharedPreferences for local storage  
+- Google Sheets API for backend data  
+- Iconsax package for icons  
 
-Integration with Google Sheets: Fetches and updates event data and notifications directly from Google Sheets, ensuring up-to-date information without manual app updates.
+## Usage
 
-Theming & Branding: Custom dark theme with MENASYP branding colors to ensure a consistent and professional look.
-
-Tech Stack
-Flutter & Dart
-
-Provider for state management
-
-SharedPreferences for local storage
-
-Google Sheets API for backend data
-
-Iconsax package for modern icons
-
-Usage
-Attendees can view schedules, receive notifications, and explore event details.
-
-Administrators can manage the schedule by adding or deleting events within the app.
-
+- **Attendees** can view schedules, receive notifications, and check event details.  
+- **Administrators** can manage the schedule by adding or deleting events within the app.
