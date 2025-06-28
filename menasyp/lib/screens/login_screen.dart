@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:menasyp/services/auth_service_gs.dart';
-import 'package:menasyp/services/user_provider.dart';
+import 'package:menasyp/core/theme.dart';
 import 'package:menasyp/screens/home_screen.dart';
+import 'package:menasyp/services/auth_service_gs.dart';
+import 'package:provider/provider.dart';
+import 'package:menasyp/services/user_provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+// Color constants
+const Color backgroundColor = Color(0xFF101010);
+const Color secondaryColor = Color(0xffFF2057);
+const Color whiteColor = Color.fromARGB(255, 255, 255, 255);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,7 +27,7 @@ class _LoginWidgetState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff1B1123),
+      backgroundColor: backgroundColor,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -35,7 +41,7 @@ class _LoginWidgetState extends State<LoginScreen> {
                   height: 100,
                   width: 100,
                   fit: BoxFit.contain,
-                  color: Colors.white,
+                 
                 ),
                 const SizedBox(height: 10),
                 Image.asset('assets/title.png'),
@@ -47,7 +53,7 @@ class _LoginWidgetState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   shadowColor: Colors.black.withOpacity(0.5),
-                  color: Colors.grey[850],
+                  color: const Color(0xFF1E1E1E),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
@@ -55,20 +61,20 @@ class _LoginWidgetState extends State<LoginScreen> {
                       children: [
                         TextField(
                           controller: _usernameController,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: whiteColor),
                           decoration: InputDecoration(
                             labelText: 'Username',
-                            labelStyle: const TextStyle(color: Colors.white70),
-                            prefixIcon: const Icon(Icons.person, color: Colors.white70),
+                            labelStyle: TextStyle(color: whiteColor.withOpacity(0.7)),
+                            prefixIcon: Icon(Icons.person, color: whiteColor.withOpacity(0.7)),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            enabledBorder: const OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
                             filled: true,
-                            fillColor: Colors.grey[800],
+                            fillColor: const Color(0xFF2A2A2A),
                             contentPadding: const EdgeInsets.symmetric(
                               vertical: 16, horizontal: 16),
                           ),
@@ -78,17 +84,17 @@ class _LoginWidgetState extends State<LoginScreen> {
                         TextField(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: whiteColor),
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: const TextStyle(color: Colors.white70),
-                            prefixIcon: const Icon(Icons.lock, color: Colors.white70),
+                            labelStyle: TextStyle(color: whiteColor.withOpacity(0.7)),
+                            prefixIcon: Icon(Icons.lock, color: whiteColor.withOpacity(0.7)),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _obscurePassword 
                                   ? Icons.visibility 
                                   : Icons.visibility_off,
-                                color: Colors.white70,
+                                color: whiteColor.withOpacity(0.7),
                               ),
                               onPressed: () {
                                 setState(() {
@@ -104,7 +110,7 @@ class _LoginWidgetState extends State<LoginScreen> {
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
                             filled: true,
-                            fillColor: Colors.grey[800],
+                            fillColor: const Color(0xFF2A2A2A),
                             contentPadding: const EdgeInsets.symmetric(
                               vertical: 16, horizontal: 16),
                           ),
@@ -120,11 +126,11 @@ class _LoginWidgetState extends State<LoginScreen> {
                                 message: 'Check your email for login information',
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               'Forgot your password?',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Color(0xffFF2057),
+                                color: secondaryColor,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -133,7 +139,7 @@ class _LoginWidgetState extends State<LoginScreen> {
                         const SizedBox(height: 20.0),
                         
                         _isLoading
-                            ? const Center(child: SpinKitFadingCircle(color: Color(0xffFF2057), size: 30.0))
+                            ? Center(child: SpinKitFadingCircle(color: secondaryColor, size: 30.0))
                             : ElevatedButton(
                                 onPressed: _handleLogin,
                                 style: ElevatedButton.styleFrom(
@@ -145,9 +151,9 @@ class _LoginWidgetState extends State<LoginScreen> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  backgroundColor: const Color(0xffFF2057),
+                                  backgroundColor: secondaryColor,
                                 ),
-                                child: const Text('LOGIN', style: TextStyle(color: Colors.white)),
+                                child: Text('LOGIN', style: TextStyle(color: whiteColor)),
                               ),
                       ],
                     ),
@@ -196,27 +202,27 @@ class _LoginWidgetState extends State<LoginScreen> {
       barrierDismissible: true,
       builder: (context) => Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: const Color(0xFF2C2C2E),
+        backgroundColor: const Color(0xFF1E1E1E),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline, size: 50, color: Color(0xffFF2057)),
+              Icon(Icons.error_outline, size: 50, color: secondaryColor),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Oops!',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: whiteColor,
                 ),
               ),
               const SizedBox(height: 10),
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Colors.white70),
+                style: TextStyle(fontSize: 16, color: whiteColor.withOpacity(0.7)),
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -224,15 +230,15 @@ class _LoginWidgetState extends State<LoginScreen> {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFF2057),
+                    backgroundColor: secondaryColor,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'OK',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: whiteColor),
                   ),
                 ),
               ),
@@ -249,27 +255,27 @@ class _LoginWidgetState extends State<LoginScreen> {
       barrierDismissible: true,
       builder: (context) => Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: const Color(0xFF2C2C2E),
+        backgroundColor: const Color(0xFF1E1E1E),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.warning_amber_rounded, size: 50, color:  Color(0xffFF2057),),
+              Icon(Icons.warning_amber_rounded, size: 50, color: secondaryColor),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Login Failed',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: whiteColor,
                 ),
               ),
               const SizedBox(height: 10),
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Colors.white70),
+                style: TextStyle(fontSize: 16, color: whiteColor.withOpacity(0.7)),
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -277,15 +283,15 @@ class _LoginWidgetState extends State<LoginScreen> {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFF2057),
+                    backgroundColor: secondaryColor,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Try Again',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: whiteColor),
                   ),
                 ),
               ),
