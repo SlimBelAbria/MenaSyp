@@ -1,4 +1,3 @@
-# MenaSyp
 
 # MenaSyp App
 
@@ -22,10 +21,40 @@ MenaSyp is a Flutter mobile application built to support the MENASYP 2025 event 
 - Google Sheets API for backend data  
 - Iconsax package for icons  
 
+## Tech Stack for Testers
+
+### Required Software
+- **Flutter SDK**: 3.13.6 
+- **Dart**: 3.1.3 
+- **iOS**: Xcode 14.0+ (for iOS testing)
+- **Android**: Android Studio or VS Code with Flutter extension
+- **Device/Simulator**: iOS 12.0+ or Android 5.0+
+
+### Key Dependencies for Testing
+- **flutter_map**: For map functionality testing
+- **url_launcher**: For external link testing
+- **share_plus**: For sharing feature testing
+- **path_provider**: For file storage testing
+- **shared_preferences**: For local data persistence testing
+- **gsheets**: For Google Sheets integration testing
+- **http**: For API communication testing
+
+### Testing Environment Setup
+1. **iOS Testing**: Requires macOS with Xcode
+2. **Android Testing**: Works on Windows, macOS, or Linux
+3. **Web Testing**: Available for basic functionality testing
+4. **Physical Device Testing**: Recommended for full feature validation
+
 ## Usage
 
 - **Attendees** can view schedules, receive notifications, and check event details.  
 - **Administrators** can manage the schedule by adding or deleting events within the app.
+
+---
+
+## Project Information
+
+A Flutter project for iOS and Android.
 
 ## Flutter Version
 
