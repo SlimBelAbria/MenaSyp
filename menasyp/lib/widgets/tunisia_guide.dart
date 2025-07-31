@@ -593,9 +593,9 @@ class _TunisiaGuidePageState extends State<TunisiaGuidePage> with TickerProvider
                       );
 
                       if (success) {
+                        Navigator.pop(context);
+                        await _loadGuideItems();
                         if (!_isDisposed && mounted) {
-                          Navigator.pop(context);
-                          await _loadGuideItems();
                           _showSnackBar('Item added successfully');
                         }
                       } else {

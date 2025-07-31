@@ -4,18 +4,18 @@ class NotificationsProvider {
   static const csvId = '1f83qoxLMt9wOHtMx_wCS7Nwmx-2RgQtsURNgtknr3bk';
   static const _credentials = r'''
   {
-    "type": "service_account",
-    "project_id": "menasyp",
-    "private_key_id": "f6d8d379991d4e6557055be6cdbceba764fb0e91",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCcqFW11OLDEhSJ\ndb7U6YNt/8vY/08d7beK6+25d0byVUUauJGTj6G6zwvLUTodj0l8c/N15sMmROYN\n9I1mWiAl8OeznunsC3TCzUz25mocwTyHEUMxWMOxV9NXuIcduefS48EpElcZaKCV\nyDzAw0t79uyz18pfqIc/NX+YIqPH0ku8Rq/Qan1AYUw/DJ+4TEG6JVNCkFUH1kP7\nnqBEcDBX+8smHSGmNfbvTW4SNdU06qt0f/Cy9bxprEA0OKGq8aO9k42RxDqZWPa5\nc0e55UX+N0l41ZykuoKyKgGlrrRl8ob2SzYIap6nmrypVTCeIPKYVcJP99JLo5OE\nJ1PjXlmPAgMBAAECggEAN0jQtpKiU+UVik0bQ1gFIdSbw8CV0yIJG+WWx1TonKyq\n7nskJMcTdDGNH/tSXwwqCtmAmaMOS3sVFOew3uX/YmRZ4HG8a6i/U9/PwXIfEHbB\nPYlCBTAmH3e3BcYBKORqg2oMyMnIIxdhVHqNthk1klHZxr3olUmMMSpYFQBkfCeV\nZTiO0lozpXWtE5YRCQfpvB/a39KplIRHUxKRbbuo7zOqRe3IAR1e7FohcQbqSsgv\nVrLjZ8TwNS4Z99Qug+p7ncUrupEcdc0PMbtRSJzxAGtJ1RjF1GyBleHgh5b/ntuk\nVfO3bv11nxkOOKVhKU4EOHXaS+AxtMc/8dcIKFDXQQKBgQDLjncfqSQiLZYljzFj\nworeebR9hy82M9f7BXt+KT+BwWw6k8wxrrUslQk70EEROb8P26lMxbkfhySjqSHV\nHY3xX+pvv8ifieEd/v4bKjb1PVrO682leI9QdxRYOm/fGHjP+aYRtXYAw7ZD5P0m\nLOIdhdWQsrmHjN1RG98f1R2Q7QKBgQDFBKhKV+C4w4asYm2lWGPvpf2kPFYf5ljU\nb5uZ0sm2WVJFdoK5yThbBnxco3JLLeHpAK8I7wEEuztg+Lw64qcWx476OcyYl9HC\nP/beD9VZMeSZt2sFddEphsHSZtK4uXid6M8k00zDHp2/2rUWaUj0WPbSOdyluGNi\nc1y5mOmQ6wKBgGjt5Hw+nXC83RQ5bzVEmH88b4zxvaWMLf6pAdK0ApeplFfRzkWi\nEKSNovfhT1lI0jOjgO8hUV9uM7Xlvpn0JTJSxi+axhlvYssqoeRw62mZmhDmPtjY\nf8/zwloErZxsKgLTZwbj6pNUT8VJ6jDenCSp08BGURsNwxxHaMoo+pe1AoGAP+vN\n6iju2SNe+2kH6ABwlB1H2NRWoQzsPyhi1JqGJWp/fdgAe+SkKyxEhw3klC2zwRQe\ntghNTUqt7j1lXLmSuppOcjL0hYGkZaC5KLz8XG8KmzDeQSxDi3SUR/5iWdqbHqid\nJHaFzjyNs+Ryom3QZK7EjdqGEyJq5FNHf1P0W7cCgYEAxieezb2EIv6G06U7OOUs\n7CagiKjoSojD/SGX/gvBxKzvC6GGOmEgmvDJSrjzPan1HTSV3c8R8C0gYeN2vgA0\nULdNPrjaxqQLua/shXM5L0fbii+MAl3pzcy6dIP2LTUNdzg4u1pAVglhr2FAWsCG\nCZkHnAkz3FntAcshZGp1Ibs=\n-----END PRIVATE KEY-----\n",
-    "client_email": "menasyp@menasyp.iam.gserviceaccount.com",
-    "client_id": "109349994561861527005",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/menasyp%40menasyp.iam.gserviceaccount.com",
-    "universe_domain": "googleapis.com"
-  }
+  "type": "service_account",
+  "project_id": "menasyp",
+  "private_key_id": "2307303c338b936fb5c3aa633faaba5d06360cb9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEUepRAeOCn3rr\nA5PVkdjWU8psTPDMjKKeq/AJw5gKOIYo4ShmXzdfX/7SKb/HoW8MY/V/ZssxvXaF\nRZN4tEnJNTK+nYPaVOe5NKC7QjDVHS8Ex8XI2VWB/EUFgb+npVKfkw4ro1Im0KpV\nEqGRjqju6oF3MZ1PEywvgh6Qf1inEqXqPTRUN9JC9BVia0MMf3AkyYBoqSgCfEWh\nESLptU4CcjyXJKdODeXu++Fdn87Fpfs1d0H/jGcFhnlY6CDspjVr4wx1tcdPkUKJ\nu+S413qF6UdzsClez3VOY9dhHeex/VTa2qZ73ulMhC6IpmPlorgr0+zMw0Njf9HN\nEMxqHwMvAgMBAAECggEAAqrvLr7Xtrc+hHdBbHb5AliUB0Ob8oK8f90IQv8JwYjp\nGOgAIqan6hTeo3khGCHsOvDDAyXZqpBdv9L6i7OveP8H9H7sH6W6KNI7eq/xdid1\n7HAmhHHZYUaxhk2FZDHqJBDA8fxqRl5O2x8W6dpw+lfsxcje7AgMG/7v4H/m8tRz\nl52tPx1Phzq7g8S/f35BrCLBA/LQOydaHA5X5SuxpOlBTPCw0DUhxo21CBmFP4V7\ncnLWnc3uCQRtJYz9MgRWChRCTdJOosMP19Uv/9By9OmANPQtrDcl4jczQRKtPlLC\nFjO2s0KGfLpIWIk+d6VvTHMJWp79TSMyv3oiU8dnIQKBgQD0x7F1nqVi+uhnkcQW\n1WJI84y8p2+WBVZWz1xMLTRMyCGqD9qEGck6IlUIXCExfFv990gPwa708GBG34JI\nfDvMaietPJbSCe8l+HDInAdr6XUoxRY5VGQPhhu0Om6X7T5guhk6mpI4qmTUcQko\nOYYX2PHd4zcPCt9I8sbx7ChGPwKBgQDNUZSJPNaBhg/vyXydoRDfV5IY3WnP5fOl\nt/3+5aIVhwgqy3PLXb4ENElRihp6XRsDrsl68bjzxlDq94Wy6GPAHahacN9UZteQ\nqw9uGjFI5NN9oxaEAHlLhNUEkd0eW3Bb4YHz21Nn/hy+X1eBv5+YuS/LCstfVUHt\n0Bn/4xFnEQKBgQCZv0RLqJYhEZAgXYJZBTZys+dWJ6UDCd8tL5m9jzcmcx4R/1s1\nViz6gs3+Lj/7IS1223c7zl/iIYmXepQOi1nUD2lUepYQ34SCyQWuO7K9qSmZrhFD\neSpQRd/o2DrW2oEvqDRohuYJCZ3DgixKQ7diCzYANNNEc4PEAhnLopW5aQKBgGEZ\nndexj/i9gDf04BxkGeimL4/W1r3dkHblJxgvXZI0xCYJBgA9mym92JbZa2BHPAln\n1h1wx/lx5r7YxMAxq0smO4JaMyRlZrkiTS/S70/7+BFI2dMfrj2K2ntIyHwc3mx1\nn9HF/hIGWW2nBWl1SHMf0XyC5F93oLBpZIJhzs8hAoGBANKjT+JINcT1ygNqoZoE\nZM7cWlh00HyXYcSv9slZkmt+7dMnYTvd51PKHybaPzYc0gzkubx6/1wez4/ODh0y\n+uvdy6wq1JKyAdn4ot5E3bEtFs2lmtuynOg/6BVNL/ciVllnt67oYoqHPUbQ8uve\nNMN/wUKAU9Ob33ghh4Ck8lz0\n-----END PRIVATE KEY-----\n",
+  "client_email": "menasyp@menasyp.iam.gserviceaccount.com",
+  "client_id": "109349994561861527005",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/menasyp%40menasyp.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
   ''';
 
   static final _gsheets = GSheets(_credentials);
@@ -23,8 +23,14 @@ class NotificationsProvider {
 
   /// Initialize the spreadsheet and notifications worksheet
   static Future<void> init() async {
-    final spreadsheet = await _gsheets.spreadsheet(csvId);
-    notificationsSheet = await _getWorksheet(spreadsheet, title: 'notifications');
+    try {
+      final spreadsheet = await _gsheets.spreadsheet(csvId);
+      notificationsSheet = await _getWorksheet(spreadsheet, title: 'notifications');
+    } catch (e) {
+      print('Failed to initialize NotificationsProvider: $e');
+      // Don't throw the error, just log it and continue
+      // This prevents the app from crashing when Google Sheets is unavailable
+    }
   }
 
   /// Get or create worksheet by title
@@ -75,17 +81,26 @@ class NotificationsProvider {
     }
   }
   static Future<List<Map<String, dynamic>>> fetchNotificationsWithIndex() async {
-  await init();
-  final rows = await notificationsSheet!.values.allRows();
-  if (rows.length <= 1) return [];
-  return List.generate(rows.length - 1, (i) {
-    final row = rows[i + 1];
-    return {
-      'id': i + 2, // row index starting from 2 (after header)
-      'title': row[0],
-      'message': row[1],
-      'type': row[2],
-    };
-  });
-}
+    try {
+      await init();
+      if (notificationsSheet == null) {
+        print('Notifications sheet not available');
+        return [];
+      }
+      final rows = await notificationsSheet!.values.allRows();
+      if (rows.length <= 1) return [];
+      return List.generate(rows.length - 1, (i) {
+        final row = rows[i + 1];
+        return {
+          'id': i + 2, // row index starting from 2 (after header)
+          'title': row[0],
+          'message': row[1],
+          'type': row[2],
+        };
+      });
+    } catch (e) {
+      print('Error fetching notifications: $e');
+      return [];
+    }
+  }
 }

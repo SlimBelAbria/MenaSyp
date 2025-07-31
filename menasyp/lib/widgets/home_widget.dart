@@ -62,16 +62,26 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   Future<void> _loadUnreadNotificationCount() async {
-    final prefs = await SharedPreferences.getInstance();
-    final lastSeenId = prefs.getInt('last_seen_notification_id') ?? 0;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final lastSeenId = prefs.getInt('last_seen_notification_id') ?? 0;
 
-    final notifications = await NotificationsProvider.fetchNotificationsWithIndex();
-    final unreadCount = notifications.where((n) => (n['id'] as int) > lastSeenId).length;
+      final notifications = await NotificationsProvider.fetchNotificationsWithIndex();
+      final unreadCount = notifications.where((n) => (n['id'] as int) > lastSeenId).length;
 
-    if (mounted) {
-      setState(() {
-        _unreadNotificationsCount = unreadCount;
-      });
+      if (mounted) {
+        setState(() {
+          _unreadNotificationsCount = unreadCount;
+        });
+      }
+    } catch (e) {
+      print('Error loading unread notification count: $e');
+      // Set count to 0 if there's an error
+      if (mounted) {
+        setState(() {
+          _unreadNotificationsCount = 0;
+        });
+      }
     }
   }
 
@@ -164,25 +174,38 @@ class _SchedulePageState extends State<SchedulePage> {
                 IconButton(
                   icon: const Icon(Iconsax.notification, color: Colors.white70, size: 26),
                   onPressed: () async {
-                    final userRole = Provider.of<UserProvider>(context, listen: false).user?['role'];
-                    final notifications = await NotificationsProvider.fetchNotificationsWithIndex();
-                    final maxId = notifications.isNotEmpty
-                        ? notifications.map((n) => n['id'] as int).reduce((a, b) => a > b ? a : b)
-                        : 0;
+                    try {
+                      final userRole = Provider.of<UserProvider>(context, listen: false).user?['role'];
+                      final notifications = await NotificationsProvider.fetchNotificationsWithIndex();
+                      final maxId = notifications.isNotEmpty
+                          ? notifications.map((n) => n['id'] as int).reduce((a, b) => a > b ? a : b)
+                          : 0;
 
-                    _markNotificationsAsSeen(maxId);
-                    await _loadUnreadNotificationCount();
+                      _markNotificationsAsSeen(maxId);
+                      await _loadUnreadNotificationCount();
 
-                    if (mounted) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => NotificationsWidget(
-                            csvUrl:
-                                "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEAEDhje20E1rev37xZE8xytcj7o4TqC-dqd99o4vQSk_VYLF92oQry6mtatdtPhKoJcd5dXhqutJi/pub?gid=1334086914&single=true&output=csv",
-                            userRole: userRole,
+                      if (mounted) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => NotificationsWidget(
+                              csvUrl:
+                                  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEAEDhje20E1rev37xZE8xytcj7o4TqC-dqd99o4vQSk_VYLF92oQry6mtatdtPhKoJcd5dXhqutJi/pub?gid=1334086914&single=true&output=csv",
+                              userRole: userRole,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
+                    } catch (e) {
+                      print('Error loading notifications: $e');
+                      // Show a snackbar to inform the user
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Unable to load notifications. Please try again later.'),
+                            backgroundColor: Colors.orange,
+                          ),
+                        );
+                      }
                     }
                   },
                 ),
@@ -252,15 +275,56 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   int _compareTime(String a, String b) {
-    final startTimeA = a.split(' - ')[0];
-    final startTimeB = b.split(' - ')[0];
-    final hourA = int.parse(startTimeA.split(':')[0]);
-    final hourB = int.parse(startTimeB.split(':')[0]);
+    try {
+      // Handle different time formats
+      String startTimeA, startTimeB;
+      
+      if (a.contains(' - ')) {
+        startTimeA = a.split(' - ')[0];
+      } else if (a.contains('-')) {
+        startTimeA = a.split('-')[0];
+      } else {
+        startTimeA = a;
+      }
+      
+      if (b.contains(' - ')) {
+        startTimeB = b.split(' - ')[0];
+      } else if (b.contains('-')) {
+        startTimeB = b.split('-')[0];
+      } else {
+        startTimeB = b;
+      }
+      
+      // Parse hours and minutes
+      int hourA, hourB, minuteA, minuteB;
+      
+      if (startTimeA.contains(':')) {
+        final partsA = startTimeA.split(':');
+        hourA = int.parse(partsA[0]);
+        minuteA = int.parse(partsA[1]);
+      } else {
+        // Handle format like "00-10" where it might be "00" hours and "10" minutes
+        hourA = int.parse(startTimeA);
+        minuteA = 0;
+      }
+      
+      if (startTimeB.contains(':')) {
+        final partsB = startTimeB.split(':');
+        hourB = int.parse(partsB[0]);
+        minuteB = int.parse(partsB[1]);
+      } else {
+        // Handle format like "00-10" where it might be "00" hours and "10" minutes
+        hourB = int.parse(startTimeB);
+        minuteB = 0;
+      }
 
-    if (hourA != hourB) return hourA.compareTo(hourB);
-    final minuteA = int.parse(startTimeA.split(':')[1]);
-    final minuteB = int.parse(startTimeB.split(':')[1]);
-    return minuteA.compareTo(minuteB);
+      if (hourA != hourB) return hourA.compareTo(hourB);
+      return minuteA.compareTo(minuteB);
+    } catch (e) {
+      // If parsing fails, return 0 to maintain order
+      print('Error parsing time: $a or $b - $e');
+      return 0;
+    }
   }
 
   Future<void> _deleteEvent(String id) async {
