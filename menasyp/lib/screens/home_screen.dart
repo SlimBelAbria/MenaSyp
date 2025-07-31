@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:menasyp/screens/contacts_screen.dart';
-import 'package:menasyp/screens/feedback_screen.dart';
+import 'package:menasyp/screens/inbox_screen.dart';
 import 'package:menasyp/screens/settings_screen.dart';
 import 'package:menasyp/screens/tourisme_screen.dart';
 import 'package:menasyp/services/user_provider.dart';
@@ -36,8 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
       const BottomNavigationBarItem(icon: Icon(Iconsax.map), label: 'Map'),
       const BottomNavigationBarItem(icon: Icon(Iconsax.book), label: 'Contacts'),
       const BottomNavigationBarItem(icon: Icon(Iconsax.setting), label: 'Settings'),
-       if (isAdmin) // Only show feedback tab for admin
-        const BottomNavigationBarItem(icon: Icon(Iconsax.message), label: 'Feedback'),
+       if (isAdmin) // Only show inbox tab for admin
+        const BottomNavigationBarItem(icon: Icon(Iconsax.message), label: 'Inbox'),
     ];
 
     return BottomNavigationBar(
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(child: TravelHomePage()),
           Center(child: ContactsScreen()),
           Center(child: ProfileScreen()),
-       FeedbackScreen()
+       InboxScreen()
         ],
       ),
       bottomNavigationBar: _buildBottomNavigation(context),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import "package:menasyp/core/theme.dart";
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -296,6 +297,120 @@ class ContactsScreenState extends State<ContactsScreen> {
     }
   }
 
+  Future<void> _showEmergencyNumbersDialog() async {
+    final emergencyContacts = [
+      {'name': 'Police (Police Nationale)', 'phone': '197'},
+      {'name': 'National Guard (Garde Nationale)', 'phone': '198'},
+      {'name': 'Firefighters (Pompiers)', 'phone': '198'},
+      {'name': 'Medical Emergency (SAMU)', 'phone': '190'},
+      {'name': 'Tourist Police', 'phone': '197'},
+    ];
+    
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF1E1E1E),
+          title: Row(
+            children: [
+              const Icon(Icons.emergency, color: Colors.red, size: 28),
+              const SizedBox(width: 8),
+              const Text(
+                'Emergency Numbers',
+                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: emergencyContacts.map((contact) {
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2A2A2A),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.red.withOpacity(0.3)),
+                  ),
+                  child: ListTile(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.red.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Icon(
+                        Icons.emergency,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                    ),
+                    title: Text(
+                      contact['name']!,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        contact['phone']!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    onTap: () => _callEmergencyNumber(contact['phone']!),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text(
+                'Close',
+                style: TextStyle(color: Colors.white70, fontSize: 16),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _callEmergencyNumber(String number) async {
+    final phoneUrl = 'tel:$number';
+    try {
+      if (await canLaunchUrl(Uri.parse(phoneUrl))) {
+        await launchUrl(Uri.parse(phoneUrl));
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Could not launch phone dialer')),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error making phone call: $e')),
+        );
+      }
+    }
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -316,6 +431,11 @@ class ContactsScreenState extends State<ContactsScreen> {
               backgroundColor:  backgroundColor,
               elevation: 0,
               actions: [
+                IconButton(
+                  icon: const Icon(Icons.emergency, color: Colors.red, size: 28),
+                  onPressed: _showEmergencyNumbersDialog,
+                  tooltip: 'Emergency Numbers',
+                ),
                 IconButton(icon: const Icon(Icons.add, color: Color(0xffFF2057)), onPressed: _addNewContact),
               ],
             ),

@@ -182,6 +182,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             subtitle: 'Help us improve the app',
             onTap: () => _showFeedbackDialog(context),
           ),
+          _buildListTile(
+            icon: Icons.report_problem,
+            title: 'Submit Complaint',
+            subtitle: 'Report issues or problems',
+            onTap: () => _showComplaintDialog(context),
+          ),
           const SizedBox(height: 32),
 
           // Logout Button
@@ -401,6 +407,177 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         );
                         _feedbackController.clear();
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Error: ${e.toString()}'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    } finally {
+                      if (context.mounted) {
+                        setState(() => isSubmitting = false);
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffFF2057),
+                    disabledBackgroundColor: const Color(0xffFF2057).withOpacity(0.5),
+                  ),
+                  child: const Text('Submit'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showComplaintDialog(BuildContext context) {
+    bool isSubmitting = false;
+    final titleController = TextEditingController();
+    final messageController = TextEditingController();
+    String selectedType = 'Technical Issue';
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: const Color(0xFF1E1E1E),
+              title: const Text(
+                'Submit Complaint',
+                style: TextStyle(color: Colors.white),
+              ),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Complaint Title',
+                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xffFF2057)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    DropdownButtonFormField<String>(
+                      value: selectedType,
+                      dropdownColor: const Color(0xFF2C2C2E),
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Select Type',
+                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xffFF2057)),
+                        ),
+                      ),
+                      items: const [
+                        DropdownMenuItem(value: 'Technical Issue', child: Text('Technical Issue')),
+                        DropdownMenuItem(value: 'App Bug', child: Text('App Bug')),
+                        DropdownMenuItem(value: 'Content Issue', child: Text('Content Issue')),
+                        DropdownMenuItem(value: 'User Experience', child: Text('User Experience')),
+                        DropdownMenuItem(value: 'Other', child: Text('Other')),
+                      ],
+                      onChanged: (value) => selectedType = value!,
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: messageController,
+                      maxLines: 5,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Describe your complaint in detail...',
+                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xffFF2057)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isSubmitting ? null : () => Navigator.pop(context),
+                  child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+                ),
+                ElevatedButton(
+                  onPressed: isSubmitting ? null : () async {
+                    final title = titleController.text.trim();
+                    final message = messageController.text.trim();
+                    
+                    if (title.isEmpty || message.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please fill in all fields'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+
+                    setState(() => isSubmitting = true);
+                    
+                    try {
+                      final success = await GoogleSheetApi.addComplaint(
+                        title: title,
+                        message: message,
+                        type: selectedType,
+                      );
+                      
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              success 
+                                ? 'Complaint submitted successfully!'
+                                : 'Failed to submit complaint'
+                            ),
+                            backgroundColor: success 
+                              ? const Color(0xffFF2057)
+                              : Colors.red,
+                          ),
+                        );
+                        titleController.clear();
+                        messageController.clear();
                       }
                     } catch (e) {
                       if (context.mounted) {

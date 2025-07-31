@@ -6,8 +6,8 @@ class GoogleSheetApi {
   {
   "type": "service_account",
   "project_id": "menasyp",
-  "private_key_id": "2307303c338b936fb5c3aa633faaba5d06360cb9",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEUepRAeOCn3rr\nA5PVkdjWU8psTPDMjKKeq/AJw5gKOIYo4ShmXzdfX/7SKb/HoW8MY/V/ZssxvXaF\nRZN4tEnJNTK+nYPaVOe5NKC7QjDVHS8Ex8XI2VWB/EUFgb+npVKfkw4ro1Im0KpV\nEqGRjqju6oF3MZ1PEywvgh6Qf1inEqXqPTRUN9JC9BVia0MMf3AkyYBoqSgCfEWh\nESLptU4CcjyXJKdODeXu++Fdn87Fpfs1d0H/jGcFhnlY6CDspjVr4wx1tcdPkUKJ\nu+S413qF6UdzsClez3VOY9dhHeex/VTa2qZ73ulMhC6IpmPlorgr0+zMw0Njf9HN\nEMxqHwMvAgMBAAECggEAAqrvLr7Xtrc+hHdBbHb5AliUB0Ob8oK8f90IQv8JwYjp\nGOgAIqan6hTeo3khGCHsOvDDAyXZqpBdv9L6i7OveP8H9H7sH6W6KNI7eq/xdid1\n7HAmhHHZYUaxhk2FZDHqJBDA8fxqRl5O2x8W6dpw+lfsxcje7AgMG/7v4H/m8tRz\nl52tPx1Phzq7g8S/f35BrCLBA/LQOydaHA5X5SuxpOlBTPCw0DUhxo21CBmFP4V7\ncnLWnc3uCQRtJYz9MgRWChRCTdJOosMP19Uv/9By9OmANPQtrDcl4jczQRKtPlLC\nFjO2s0KGfLpIWIk+d6VvTHMJWp79TSMyv3oiU8dnIQKBgQD0x7F1nqVi+uhnkcQW\n1WJI84y8p2+WBVZWz1xMLTRMyCGqD9qEGck6IlUIXCExfFv990gPwa708GBG34JI\nfDvMaietPJbSCe8l+HDInAdr6XUoxRY5VGQPhhu0Om6X7T5guhk6mpI4qmTUcQko\nOYYX2PHd4zcPCt9I8sbx7ChGPwKBgQDNUZSJPNaBhg/vyXydoRDfV5IY3WnP5fOl\nt/3+5aIVhwgqy3PLXb4ENElRihp6XRsDrsl68bjzxlDq94Wy6GPAHahacN9UZteQ\nqw9uGjFI5NN9oxaEAHlLhNUEkd0eW3Bb4YHz21Nn/hy+X1eBv5+YuS/LCstfVUHt\n0Bn/4xFnEQKBgQCZv0RLqJYhEZAgXYJZBTZys+dWJ6UDCd8tL5m9jzcmcx4R/1s1\nViz6gs3+Lj/7IS1223c7zl/iIYmXepQOi1nUD2lUepYQ34SCyQWuO7K9qSmZrhFD\neSpQRd/o2DrW2oEvqDRohuYJCZ3DgixKQ7diCzYANNNEc4PEAhnLopW5aQKBgGEZ\nndexj/i9gDf04BxkGeimL4/W1r3dkHblJxgvXZI0xCYJBgA9mym92JbZa2BHPAln\n1h1wx/lx5r7YxMAxq0smO4JaMyRlZrkiTS/S70/7+BFI2dMfrj2K2ntIyHwc3mx1\nn9HF/hIGWW2nBWl1SHMf0XyC5F93oLBpZIJhzs8hAoGBANKjT+JINcT1ygNqoZoE\nZM7cWlh00HyXYcSv9slZkmt+7dMnYTvd51PKHybaPzYc0gzkubx6/1wez4/ODh0y\n+uvdy6wq1JKyAdn4ot5E3bEtFs2lmtuynOg/6BVNL/ciVllnt67oYoqHPUbQ8uve\nNMN/wUKAU9Ob33ghh4Ck8lz0\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "562be57798c017218f02ad815117c997e9df0501",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDZEKd0825OW6lO\nbEH4LQyj1hu/aX1njlMYiH2oCDI0TzAYN+ACJQQLlamTdZnqF2KHqVpnj3EvIJ/x\n1Nfx3+D8NceiaDngod8gqOVkRqJVDUXYFask8bUryf8v/t5IWINZ3/aK7d+kN2MN\nyd/lNlSWTJHyhVSCpZLKxqqR3URQmq8ToJXGivGtroWqdLfW/SJhWQkIefwtfnrw\nM6aaHPci5I6MVJnho7Xq5EldnxfRDW7aSoDBCoLG8jHP7eaMTphNs1GB49n8iV8T\nQ2Q2sxp3onOym8QoR0dtB6TbB6r0ZG/5FDN9ySARz6fN9U6o/tYvs0Tf0qQuQSxB\nk4z4z/+BAgMBAAECggEAA9jwWOm0LbIg+f1//VfCErjZsM68POzIQwXvUT5E8omp\nSPKblzoj/FcUpIMX/W7Y7Z3mNvHzUAIoZ5tN0REWbi3/Wfz2Mqm32F66Aykf2TlV\nILeAmzToEMzBp86BDt/3wwzt1ChTd5gOOsk2XVwVS30ztIxhszefVpYHIbL98h5F\nasMz4RGFl/RwnEj+vfiRZydCoNYXUWFebneIyHvaJH1R4Ex1HI1spT37jiAhKD5s\nru/3LiCH3Q3EVhjLGcu8YwoFoMvuz4bFPUM7sIUvyovD9z2eWuJKpKsvXJBt0k9L\nR2q5i6sBcXxPjtV417lZ0WmABEhy8a+MSi1G1cA82QKBgQDwBKADqXk04IB0j9O2\naB8e37KkTrMwmtlFzvlhNwiolePdZESaIjhlvehf9wFHGjJBd82d017W5VpHW4cW\nU+Mf/vSeETJbqev3+5OFPrvFQUhsb8S60xkWrlZo/W3qJ1PVONw7rDrutF73Bawm\nGqWXr5bGlLax8BWd6G5163yA+QKBgQDnhMT7SSPF5beuKJKCci/wx8cc8V/X5JX8\n1MNSBwNPRj29VX9k0VhC/7Hvmk9oVjN7wrTWWKWHxnUz2BFfSHYCCkgZYPpOQtb5\nR8qML/FQXiU+mlcVkDXQquVY5qeigEqu0GpxjC3jrsKGYdtsxp0Ag/P1fBGe9tnh\n/QLRde+cyQKBgEs7R+Sd9E3sqJbglh2wmUCWIWp6+JOdlcjZzTT5iQ8+nEPCr/YY\nD9FkKzgZNh9RSLtYj+yOWkXFcfy35anL9X8L7SS2gzBUHJCIHH9BYJ29jrPefK2K\niWygjJkwBonEdfR5dB6IJ5i2lKWc846l/42CDiKEbpdrh3sNZcI0Y7wRAoGAI5Z7\nGQ1jHFZ1Z6YA72BSEjcDWmWYD/2pOJYT+BXv4k2vy9zKmlq7sIDRfz0/G5C0lT+W\nwKQbvcU52uBJu1XOHf4qmwwXLdSEawkoD2iHNY1jOD5NSJlETHEYlBPQjOAfmsOa\nuR2NKESCzllYe14EYEHoTEHoC4FyeJSFzGDOllECgYBMAzJ1qT2FgrQjwWH3kbeZ\nKJw0IG6ivkCLUbYRxn+9CLLwM4qhFVrTQMKYnDKT7egWweux5G4oX8kQDl+diSCA\n+1cIIY+2BWigwCm4TKrEAHfoWIbbiApOKXyGon8QvmHwiTh2/bU1wHDvF2wZX4g7\nTmLxQGZBqtSkxyMLiHfPXg==\n-----END PRIVATE KEY-----\n",
   "client_email": "menasyp@menasyp.iam.gserviceaccount.com",
   "client_id": "109349994561861527005",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -16,8 +16,6 @@ class GoogleSheetApi {
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/menasyp%40menasyp.iam.gserviceaccount.com",
   "universe_domain": "googleapis.com"
 }
-
-
   ''';
 
   static final _gsheets = GSheets(_credentials);
@@ -26,6 +24,7 @@ class GoogleSheetApi {
   static Worksheet? _scheduleSheet;
   static Worksheet? _feedbackSheet;
   static Worksheet? _guideSheet;
+  static Worksheet? _complaintsSheet;
 
   /// === INIT ALL SHEETS ===
   static Future<void> init() async {
@@ -35,6 +34,7 @@ class GoogleSheetApi {
       _scheduleSheet = await _getWorksheet(spreadsheet, title: 'schedule');
       _feedbackSheet = await _getWorksheet(spreadsheet, title: 'feedback');
       _guideSheet = await _getWorksheet(spreadsheet, title: 'guide');
+      _complaintsSheet = await _getWorksheet(spreadsheet, title: 'complaints');
 
       // Initialize headers if empty
       final feedbackFirstRow = await _feedbackSheet?.values.row(1);
@@ -50,6 +50,11 @@ class GoogleSheetApi {
       final guideFirstRow = await _guideSheet?.values.row(1);
       if (guideFirstRow == null || guideFirstRow.isEmpty) {
         await _guideSheet?.values.insertRow(1, ['id', 'category', 'title', 'description']);
+      }
+
+      final complaintsFirstRow = await _complaintsSheet?.values.row(1);
+      if (complaintsFirstRow == null || complaintsFirstRow.isEmpty) {
+        await _complaintsSheet?.values.insertRow(1, ['id', 'message', 'title', 'type', 'timestamp']);
       }
     } catch (e) {
       throw Exception('Failed to initialize Google Sheets: $e');
@@ -134,6 +139,48 @@ class GoogleSheetApi {
       };
       await _feedbackSheet!.values.map.appendRow(row);
       return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static Future<List<Map<String, dynamic>>> getFeedbackData() async {
+    if (_feedbackSheet == null) await init();
+    final data = await _feedbackSheet!.values.allRows();
+    if (data.isEmpty) return [];
+
+    final headers = data[0];
+    final feedbackItems = <Map<String, dynamic>>[];
+    for (var i = 1; i < data.length; i++) {
+      final row = data[i];
+      if (row.length >= headers.length) {
+        final item = <String, dynamic>{};
+        for (var j = 0; j < headers.length; j++) {
+          item[headers[j].toLowerCase()] = row[j];
+        }
+        feedbackItems.add(item);
+      }
+    }
+    return feedbackItems;
+  }
+
+  static Future<bool> deleteFeedback(String id) async {
+    try {
+      if (_feedbackSheet == null) await init();
+      final data = await _feedbackSheet!.values.allRows();
+      if (data.isEmpty) return false;
+
+      final headers = data[0];
+      final idIndex = headers.indexWhere((h) => h.toLowerCase() == 'id');
+      if (idIndex == -1) return false;
+
+      for (var i = 1; i < data.length; i++) {
+        if (data[i][idIndex] == id) {
+          await _feedbackSheet!.deleteRow(i + 1);
+          return true;
+        }
+      }
+      return false;
     } catch (e) {
       return false;
     }
@@ -254,6 +301,65 @@ class GoogleSheetApi {
     final firstRow = await sheet.values.row(1);
     if (firstRow.isEmpty) {
       await sheet.values.insertRow(1, headers);
+    }
+  }
+
+  // ========== COMPLAINTS ==========
+  static Future<List<Map<String, dynamic>>> getComplaints() async {
+    if (_complaintsSheet == null) await init();
+    final data = await _complaintsSheet!.values.allRows();
+    if (data.isEmpty) return [];
+
+    final headers = data[0];
+    final complaints = <Map<String, dynamic>>[];
+    for (var i = 1; i < data.length; i++) {
+      final row = data[i];
+      if (row.length >= headers.length) {
+        final complaint = <String, dynamic>{};
+        for (var j = 0; j < headers.length; j++) {
+          complaint[headers[j].toLowerCase()] = row[j];
+        }
+        complaints.add(complaint);
+      }
+    }
+    return complaints;
+  }
+
+  static Future<bool> addComplaint({
+    required String message,
+    required String title,
+    required String type,
+  }) async {
+    try {
+      if (_complaintsSheet == null) await init();
+      final id = DateTime.now().millisecondsSinceEpoch.toString();
+      final row = [id, message, title, type, DateTime.now().toIso8601String()];
+      await _complaintsSheet!.values.appendRow(row);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static Future<bool> deleteComplaint(String id) async {
+    try {
+      if (_complaintsSheet == null) await init();
+      final data = await _complaintsSheet!.values.allRows();
+      if (data.isEmpty) return false;
+
+      final headers = data[0];
+      final idIndex = headers.indexWhere((h) => h.toLowerCase() == 'id');
+      if (idIndex == -1) return false;
+
+      for (var i = 1; i < data.length; i++) {
+        if (data[i][idIndex] == id) {
+          await _complaintsSheet!.deleteRow(i + 1);
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      return false;
     }
   }
 }

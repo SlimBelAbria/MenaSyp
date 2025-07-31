@@ -4,6 +4,7 @@ import 'package:menasyp/services/google_sheet_api.dart';
 import 'package:menasyp/services/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Category definitions with icons and colors
 class GuideCategory {
@@ -149,6 +150,9 @@ class _TunisiaGuidePageState extends State<TunisiaGuidePage> with TickerProvider
         });
         _fadeController.forward();
         _slideController.forward();
+        
+        // Check if emergency numbers exist, if not add them
+        await _ensureEmergencyNumbersExist();
       }
     } catch (e) {
       if (!_isDisposed && mounted) {
@@ -157,6 +161,68 @@ class _TunisiaGuidePageState extends State<TunisiaGuidePage> with TickerProvider
         });
         _showSnackBar('Failed to load guide: $e', isError: true);
       }
+    }
+  }
+
+  /// Ensure emergency numbers are added to the guide
+  Future<void> _ensureEmergencyNumbersExist() async {
+    try {
+      final emergencyItems = guideItems.where((item) => 
+        item['category']?.toString().toLowerCase() == 'emergency numbers'
+      ).toList();
+      
+      // If no emergency numbers exist, add them
+      if (emergencyItems.isEmpty) {
+        await _addDefaultEmergencyNumbers();
+      }
+    } catch (e) {
+      print('Error ensuring emergency numbers: $e');
+    }
+  }
+
+  /// Add default emergency numbers to the guide
+  Future<void> _addDefaultEmergencyNumbers() async {
+    try {
+      final emergencyNumbers = [
+        {
+          'category': 'Emergency Numbers',
+          'title': 'Police (Police Nationale)',
+          'description': 'Emergency: 197\nGeneral: 717-800-00\nFor immediate police assistance and emergency situations.',
+        },
+        {
+          'category': 'Emergency Numbers',
+          'title': 'National Guard (Garde Nationale)',
+          'description': 'Emergency: 198\nGeneral: 717-800-00\nFor security and border control emergencies.',
+        },
+        {
+          'category': 'Emergency Numbers',
+          'title': 'Firefighters (Pompiers)',
+          'description': 'Emergency: 198\nGeneral: 717-800-00\nFor fire emergencies and rescue operations.',
+        },
+        {
+          'category': 'Emergency Numbers',
+          'title': 'Medical Emergency (SAMU)',
+          'description': 'Emergency: 190\nFor medical emergencies and ambulance services.',
+        },
+        {
+          'category': 'Emergency Numbers',
+          'title': 'Tourist Police',
+          'description': 'Emergency: 197\nSpecialized assistance for tourists in Tunisia.',
+        },
+      ];
+
+      for (final number in emergencyNumbers) {
+        await GoogleSheetApi.addGuideItem(
+          category: number['category']!,
+          title: number['title']!,
+          description: number['description']!,
+        );
+      }
+
+      // Reload items to show the new emergency numbers
+      await _loadGuideItems();
+    } catch (e) {
+      print('Error adding emergency numbers: $e');
     }
   }
 
@@ -264,6 +330,18 @@ class _TunisiaGuidePageState extends State<TunisiaGuidePage> with TickerProvider
                   : _buildGuideContent(isAdmin),
         ),
       ),
+      floatingActionButton: isAdmin
+          ? FloatingActionButton(
+              backgroundColor: const Color(0xffFF2057),
+              onPressed: () => _showAddGuideItemDialog(context),
+              child: const Icon(Icons.add, color: Colors.white),
+            )
+          : FloatingActionButton.extended(
+              backgroundColor: Colors.red,
+              onPressed: () => _showEmergencyNumbersQuickAccess(),
+              icon: const Icon(Icons.emergency, color: Colors.white),
+              label: const Text('Emergency', style: TextStyle(color: Colors.white)),
+            ),
     );
   }
 
@@ -717,6 +795,9 @@ class _TunisiaGuidePageState extends State<TunisiaGuidePage> with TickerProvider
   }
 
   Widget _buildInfoCard(GuideCategory categoryInfo, String title, String description) {
+    // Check if this is an emergency number item
+    final isEmergencyNumber = categoryInfo.name == 'Emergency Numbers';
+    
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -777,21 +858,266 @@ class _TunisiaGuidePageState extends State<TunisiaGuidePage> with TickerProvider
                     maxLines: 2,
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    description,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[400],
-                      height: 1.4,
+                  if (isEmergencyNumber)
+                    _buildEmergencyNumberContent(description)
+                  else
+                    Text(
+                      description,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[400],
+                        height: 1.4,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                  ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmergencyNumberContent(String description) {
+    final lines = description.split('\n');
+    final emergencyLine = lines.firstWhere(
+      (line) => line.toLowerCase().contains('emergency:'),
+      orElse: () => '',
+    );
+    final generalLine = lines.firstWhere(
+      (line) => line.toLowerCase().contains('general:'),
+      orElse: () => '',
+    );
+    final infoLine = lines.lastWhere(
+      (line) => !line.toLowerCase().contains('emergency:') && 
+                !line.toLowerCase().contains('general:'),
+      orElse: () => '',
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (emergencyLine.isNotEmpty)
+          GestureDetector(
+            onTap: () => _callEmergencyNumber(emergencyLine.split(':').last.trim()),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.red.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.withOpacity(0.3)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.emergency, color: Colors.red, size: 16),
+                  const SizedBox(width: 8),
+                  Text(
+                    emergencyLine,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(Icons.phone, color: Colors.red, size: 14),
+                ],
+              ),
+            ),
+          ),
+        if (generalLine.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          GestureDetector(
+            onTap: () => _callEmergencyNumber(generalLine.split(':').last.trim()),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.phone, color: Colors.blue, size: 16),
+                  const SizedBox(width: 8),
+                  Text(
+                    generalLine,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+        if (infoLine.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Text(
+            infoLine,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey[500],
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  void _callEmergencyNumber(String number) async {
+    // Remove any non-digit characters except + for international numbers
+    final cleanNumber = number.replaceAll(RegExp(r'[^\d+]'), '');
+    if (cleanNumber.isNotEmpty) {
+      final phoneUrl = 'tel:$cleanNumber';
+      try {
+        if (await canLaunchUrl(Uri.parse(phoneUrl))) {
+          await launchUrl(Uri.parse(phoneUrl));
+        } else {
+          _showSnackBar('Could not launch phone dialer', isError: true);
+        }
+      } catch (e) {
+        _showSnackBar('Error making phone call: $e', isError: true);
+      }
+    }
+  }
+
+  void _showEmergencyNumbersQuickAccess() {
+    final emergencyItems = guideItems.where((item) => 
+      item['category']?.toString().toLowerCase() == 'emergency numbers'
+    ).toList();
+
+    if (emergencyItems.isEmpty) {
+      _showSnackBar('No emergency numbers found in the guide.', isError: true);
+      return;
+    }
+
+         showDialog(
+       context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: const Color(0xFF2C2C2E),
+        title: const Row(
+          children: [
+            Icon(Icons.emergency, color: Colors.red, size: 28),
+            SizedBox(width: 12),
+            Flexible(
+              child: Text(
+                'Emergency Numbers',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: emergencyItems.map((item) {
+              final lines = item['description']?.split('\n') ?? [];
+              final emergencyLine = lines.firstWhere(
+                (line) => line.toLowerCase().contains('emergency:'),
+                orElse: () => '',
+              );
+              final generalLine = lines.firstWhere(
+                (line) => line.toLowerCase().contains('general:'),
+                orElse: () => '',
+              );
+              final infoLine = lines.lastWhere(
+                (line) => !line.toLowerCase().contains('emergency:') && 
+                          !line.toLowerCase().contains('general:'),
+                orElse: () => '',
+              );
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (emergencyLine.isNotEmpty) ...[
+                    GestureDetector(
+                      onTap: () => _callEmergencyNumber(emergencyLine.split(':').last.trim()),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.red.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.red.withOpacity(0.3)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.emergency, color: Colors.red, size: 16),
+                            const SizedBox(width: 8),
+                            Text(
+                              emergencyLine,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            const Icon(Icons.phone, color: Colors.red, size: 14),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (generalLine.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    GestureDetector(
+                      onTap: () => _callEmergencyNumber(generalLine.split(':').last.trim()),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.blue.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.phone, color: Colors.blue, size: 16),
+                            const SizedBox(width: 8),
+                            Text(
+                              generalLine,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (infoLine.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      infoLine,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[500],
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 16),
+                ],
+              );
+            }).toList(),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close', style: TextStyle(color: Colors.grey)),
+          ),
+        ],
       ),
     );
   }

@@ -8,8 +8,10 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart'; // <-- new import
 
+
 import 'package:menasyp/core/theme.dart';
 import 'package:menasyp/services/notifications_provicder.dart';
+import 'package:menasyp/widgets/terms_and_conditions.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -160,6 +162,7 @@ class _SchedulePageState extends State<SchedulePage> {
         Image.asset('assets/logo_horizontal.png', height: 40),
         Row(
           children: [
+
             IconButton(
               icon: const Icon(Icons.info_outline, color: Colors.white70, size: 26),
               onPressed: () {
@@ -453,6 +456,8 @@ class _SchedulePageState extends State<SchedulePage> {
       ),
     );
   }
+
+
 }
 
 class _DayChip extends StatelessWidget {
