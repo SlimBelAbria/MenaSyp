@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 import "package:menasyp/core/theme.dart";
+import 'package:menasyp/core/responsive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
@@ -76,27 +77,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final avatarImage = user?['sex'] == 'F' ? 'assets/women.png' : 'assets/men.png';
     final branch = user?['Branch'] ?? 'Not specified';
     final country = user?['Country'] ?? 'Not specified';
+    final isTablet = ResponsiveUtils.isTablet(context);
 
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'Settings',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 20, tablet: 22, desktop: 24),
+          ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
+        padding: ResponsiveUtils.getResponsiveMargin(context),
         children: [
           // User Profile Section
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(ResponsiveUtils.getResponsivePadding(context)),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
             ),
             child: Row(
               children: [

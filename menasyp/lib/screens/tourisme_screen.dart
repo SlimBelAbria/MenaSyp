@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 import "package:menasyp/core/theme.dart";
+import 'package:menasyp/core/responsive_utils.dart';
 
 
 class TravelHomePage extends StatefulWidget {
@@ -140,38 +141,44 @@ class _TravelHomePageState extends State<TravelHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    final isDesktop = ResponsiveUtils.isDesktop(context);
+    
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                horizontal: ResponsiveUtils.getResponsivePadding(context),
+                vertical: isTablet ? 20 : 16
+              ),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   _buildHeader(),
-                  const SizedBox(height: 24),
+                  SizedBox(height: isTablet ? 28 : 24),
                   _buildSearchBar(),
-                  const SizedBox(height: 32),
+                  SizedBox(height: isTablet ? 36 : 32),
                   _buildCategoryChips(),
-                  const SizedBox(height: 24),
+                  SizedBox(height: isTablet ? 28 : 24),
                 ]),
               ),
             ),
             _buildRecommendedSection(),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: ResponsiveUtils.getResponsivePadding(context)),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  const SizedBox(height: 24),
+                  SizedBox(height: isTablet ? 28 : 24),
                   _buildTopDestinationsHeader(),
-                  const SizedBox(height: 16),
+                  SizedBox(height: isTablet ? 20 : 16),
                 ]),
               ),
             ),
             _buildTopDestinationsList(),
-            const SliverPadding(
-              padding: EdgeInsets.only(bottom: 80),
+            SliverPadding(
+              padding: EdgeInsets.only(bottom: isTablet ? 100 : 80),
             ),
           ],
         ),
@@ -180,15 +187,30 @@ class _TravelHomePageState extends State<TravelHomePage> {
   }
 
   Widget _buildHeader() {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hello, Menasypian!', style: TextStyle(fontSize: 18, color: Colors.grey[400])),
-            const SizedBox(height: 4),
-            const Text('Explore Tunisia with us', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+            Text(
+              'Hello, Menasypian!', 
+              style: TextStyle(
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 18, tablet: 20, desktop: 22),
+                color: Colors.grey[400]
+              )
+            ),
+            SizedBox(height: isTablet ? 6 : 4),
+            Text(
+              'Explore Tunisia with us', 
+              style: TextStyle(
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 22, tablet: 24, desktop: 26),
+                fontWeight: FontWeight.bold, 
+                color: Colors.white
+              )
+            ),
           ],
         ),
       ],
@@ -196,20 +218,38 @@ class _TravelHomePageState extends State<TravelHomePage> {
   }
 
   Widget _buildSearchBar() {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return Container(
       decoration: BoxDecoration(
         boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 16, offset: const Offset(0, 8))],
       ),
       child: TextField(
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 16, tablet: 18, desktop: 20)
+        ),
         decoration: InputDecoration(
           hintText: 'Search destination, activities...',
-          hintStyle: TextStyle(color: Colors.grey[500]),
-          prefixIcon: Icon(Icons.search, color: Colors.grey[500]),
+          hintStyle: TextStyle(
+            color: Colors.grey[500],
+            fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 16, tablet: 18, desktop: 20)
+          ),
+          prefixIcon: Icon(
+            Icons.search, 
+            color: Colors.grey[500],
+            size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 20, tablet: 24, desktop: 28)
+          ),
           filled: true,
           fillColor: const Color(0xFF1E1E1E),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
-          contentPadding: const EdgeInsets.symmetric(vertical: 0),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)), 
+            borderSide: BorderSide.none
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: isTablet ? 16 : 0,
+            horizontal: isTablet ? 20 : 16
+          ),
         ),
       ),
     );
@@ -217,8 +257,10 @@ class _TravelHomePageState extends State<TravelHomePage> {
 
   Widget _buildCategoryChips() {
     final categories = ['Show All', 'Sights', 'Museums', 'Entertainment', 'Night Clubs'];
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return SizedBox(
-      height: 40,
+      height: isTablet ? 48 : 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
@@ -236,14 +278,16 @@ class _TravelHomePageState extends State<TravelHomePage> {
   }
 
   Widget _buildRecommendedSection() {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 260,
+        height: isTablet ? 300 : 260,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: ResponsiveUtils.getResponsivePadding(context)),
           itemCount: filteredDestinations.length,
-          separatorBuilder: (_, __) => const SizedBox(width: 16),
+          separatorBuilder: (_, __) => SizedBox(width: isTablet ? 20 : 16),
           itemBuilder: (context, index) {
             final dest = filteredDestinations[index];
             return _buildDestinationCard(dest);
@@ -254,17 +298,19 @@ class _TravelHomePageState extends State<TravelHomePage> {
   }
 
   Widget _buildDestinationCard(Map<String, dynamic> destination) {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return GestureDetector(
       onTap: () => _showDestinationDetail(destination),
       child: Container(
-        width: 180,
-        margin: const EdgeInsets.only(right: 16),
+        width: isTablet ? 220 : 180,
+        margin: EdgeInsets.only(right: isTablet ? 20 : 16),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
           boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 12, offset: const Offset(0, 8))],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
           child: Stack(
             children: [
               Image.asset(
@@ -323,25 +369,33 @@ class _TravelHomePageState extends State<TravelHomePage> {
   }
 
   Widget _buildTopDestinationsHeader() {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Top Destinations', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
-       
+        Text(
+          'Top Destinations', 
+          style: TextStyle(
+            fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 20, tablet: 22, desktop: 24),
+            fontWeight: FontWeight.bold, 
+            color: Colors.white
+          )
+        ),
       ],
     );
   }
 
   Widget _buildTopDestinationsList() {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 110,
+        height: isTablet ? 130 : 110,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: ResponsiveUtils.getResponsivePadding(context)),
           children: topDestinations.map((destination) {
             return Padding(
-              padding: const EdgeInsets.only(right: 16),
+              padding: EdgeInsets.only(right: isTablet ? 20 : 16),
               child: GestureDetector(
                 onTap: () => _showDestinationDetail(destination),
                 child: SmallDestinationCard(
@@ -757,22 +811,28 @@ class CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return Container(
-      margin: const EdgeInsets.only(right: 12),
+      margin: EdgeInsets.only(right: isTablet ? 16 : 12),
       child: Material(
         color: isActive ? accentColor : const Color(0xFF1E1E1E),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
         elevation: 0,
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: isTablet ? 24 : 20, 
+              vertical: isTablet ? 12 : 10
+            ),
             child: Text(
               label,
               style: TextStyle(
                 color: isActive ? Colors.white : Colors.grey[400],
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 14, tablet: 16, desktop: 18),
               ),
             ),
           ),
@@ -793,31 +853,44 @@ class SmallDestinationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    
     return Container(
-      width: 90,
+      width: isTablet ? 110 : 90,
       child: Column(
         children: [
           Container(
-            height: 60,
-            width: 60,
+            height: isTablet ? 70 : 60,
+            width: isTablet ? 70 : 60,
             decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
               boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 8, offset: const Offset(0, 4))],
             ),
-            child: Icon(icon, color: iconColor, size: 28),
+            child: Icon(
+              icon, 
+              color: iconColor, 
+              size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 28, tablet: 32, desktop: 36)
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8),
+            padding: EdgeInsets.only(top: isTablet ? 10 : 8),
             child: Text(
               title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
+              style: TextStyle(
+                fontWeight: FontWeight.bold, 
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 12, tablet: 14, desktop: 16),
+                color: Colors.white
+              ),
               textAlign: TextAlign.center,
             ),
           ),
           Text(
             location,
-            style: TextStyle(fontSize: 10, color: Colors.grey[400]),
+            style: TextStyle(
+              fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 10, tablet: 12, desktop: 14),
+              color: Colors.grey[400]
+            ),
             textAlign: TextAlign.center,
           ),
         ],

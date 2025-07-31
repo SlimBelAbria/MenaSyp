@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import "package:menasyp/core/theme.dart";
+import 'package:menasyp/core/responsive_utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ContactsScreen extends StatefulWidget {
@@ -233,25 +234,42 @@ class ContactsScreenState extends State<ContactsScreen> {
     final role = contact['role'];
     final phone = contact['phone'];
     final starred = contact['starred'] == true;
+    final isTablet = ResponsiveUtils.isTablet(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: isTablet ? 8 : 6),
       child: Material(
         elevation: 4,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
         color: const Color(0xFF1E1E1E),
         child: ListTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context))
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: ResponsiveUtils.getResponsivePadding(context),
+            vertical: isTablet ? 16 : 12
+          ),
           leading: CircleAvatar(
-            radius: 24,
+            radius: ResponsiveUtils.getResponsiveIconSize(context, mobile: 24, tablet: 28, desktop: 32),
             backgroundColor: _getAvatarColor(name),
             child: Text(
               _getAvatarText(name),
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white, 
+                fontWeight: FontWeight.bold,
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 16, tablet: 18, desktop: 20)
+              ),
             ),
           ),
-          title: Text(name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+          title: Text(
+            name, 
+            style: TextStyle(
+              color: Colors.white, 
+              fontWeight: FontWeight.w600,
+              fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 16, tablet: 18, desktop: 20)
+            )
+          ),
           subtitle: GestureDetector(
             onTap: () {
               Clipboard.setData(ClipboardData(text: phone));
@@ -259,17 +277,31 @@ class ContactsScreenState extends State<ContactsScreen> {
                 const SnackBar(content: Text('Phone number copied to clipboard')),
               );
             },
-            child: Text(role, style: TextStyle(color: Colors.grey[400], fontSize: 14)),
+            child: Text(
+              role, 
+              style: TextStyle(
+                color: Colors.grey[400], 
+                fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 14, tablet: 16, desktop: 18)
+              )
+            ),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(starred ? Icons.star : Icons.star_border, color: starred ? const Color(0xffFF2057) : Colors.grey[600]),
+                icon: Icon(
+                  starred ? Icons.star : Icons.star_border, 
+                  color: starred ? const Color(0xffFF2057) : Colors.grey[600],
+                  size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 20, tablet: 24, desktop: 28)
+                ),
                 onPressed: () => _toggleStar(index),
               ),
               IconButton(
-                icon: const Icon(Icons.delete, color: Colors.redAccent),
+                icon: Icon(
+                  Icons.delete, 
+                  color: Colors.redAccent,
+                  size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 20, tablet: 24, desktop: 28)
+                ),
                 onPressed: () => _deleteContact(index),
               ),
             ],
@@ -422,65 +454,124 @@ class ContactsScreenState extends State<ContactsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    final isDesktop = ResponsiveUtils.isDesktop(context);
+    
     return _isLoading
         ? const Scaffold(backgroundColor: backgroundColor, body: Center(child: SpinKitFadingCircle(color: Color(0xffFF2057), size: 50.0)))
         : Scaffold(
-            backgroundColor:  backgroundColor,
+            backgroundColor: backgroundColor,
             appBar: AppBar(
-              title: const Text('Contacts', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600)),
-              backgroundColor:  backgroundColor,
+              title: Text(
+                'Contacts', 
+                style: TextStyle(
+                  color: Colors.white, 
+                  fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 24, tablet: 26, desktop: 28),
+                  fontWeight: FontWeight.w600
+                )
+              ),
+              backgroundColor: backgroundColor,
               elevation: 0,
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.emergency, color: Colors.red, size: 28),
+                  icon: Icon(
+                    Icons.emergency, 
+                    color: Colors.red, 
+                    size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 28, tablet: 32, desktop: 36)
+                  ),
                   onPressed: _showEmergencyNumbersDialog,
                   tooltip: 'Emergency Numbers',
                 ),
-                IconButton(icon: const Icon(Icons.add, color: Color(0xffFF2057)), onPressed: _addNewContact),
+                IconButton(
+                  icon: Icon(
+                    Icons.add, 
+                    color: const Color(0xffFF2057),
+                    size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 24, tablet: 28, desktop: 32)
+                  ), 
+                  onPressed: _addNewContact
+                ),
               ],
             ),
             body: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: ResponsiveUtils.getResponsiveMargin(context),
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFF1E1E1E),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(ResponsiveUtils.getResponsiveBorderRadius(context)),
                       border: Border.all(color: const Color(0xFF2A2A2A)),
                     ),
                     child: TextField(
                       controller: _searchController,
                       onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search, color: Colors.grey[500]),
+                        prefixIcon: Icon(
+                          Icons.search, 
+                          color: Colors.grey[500],
+                          size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 20, tablet: 24, desktop: 28)
+                        ),
                         hintText: 'Search contacts...',
-                        hintStyle: TextStyle(color: Colors.grey[600]),
+                        hintStyle: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 16, tablet: 18, desktop: 20)
+                        ),
                         border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: isTablet ? 20 : 16,
+                          horizontal: isTablet ? 20 : 16
+                        ),
                       ),
-                      style: const TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 16, tablet: 18, desktop: 20),
+                        color: Colors.white
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                   child: ListView(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ResponsiveUtils.getResponsivePadding(context) / 2
+                    ),
                     children: [
                       if (filteredContacts.any((c) => c['starred'] == true)) ...[
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                          child: Text('Favorites', style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold)),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ResponsiveUtils.getResponsivePadding(context) / 2,
+                            vertical: isTablet ? 8 : 4
+                          ),
+                          child: Text(
+                            'Favorites', 
+                            style: TextStyle(
+                              color: Colors.white70, 
+                              fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 18, tablet: 20, desktop: 22),
+                              fontWeight: FontWeight.bold
+                            )
+                          ),
                         ),
                         ...filteredContacts.where((c) => c['starred'] == true).map(_buildContactTile).toList(),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                          child: Divider(color: Colors.white24),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ResponsiveUtils.getResponsivePadding(context) / 2,
+                            vertical: isTablet ? 8 : 4
+                          ),
+                          child: const Divider(color: Colors.white24),
                         ),
                       ],
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                        child: Text('All Contacts', style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold)),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: ResponsiveUtils.getResponsivePadding(context) / 2,
+                          vertical: isTablet ? 8 : 4
+                        ),
+                        child: Text(
+                          'All Contacts', 
+                          style: TextStyle(
+                            color: Colors.white70, 
+                            fontSize: ResponsiveUtils.getResponsiveFontSize(context, mobile: 18, tablet: 20, desktop: 22),
+                            fontWeight: FontWeight.bold
+                          )
+                        ),
                       ),
                       ...filteredContacts.where((c) => c['starred'] != true).map(_buildContactTile).toList(),
                     ],
@@ -491,7 +582,11 @@ class ContactsScreenState extends State<ContactsScreen> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: const Color(0xffFF2057),
               onPressed: _addNewContact,
-              child: const Icon(Icons.add, color: Colors.white),
+              child: Icon(
+                Icons.add, 
+                color: Colors.white,
+                size: ResponsiveUtils.getResponsiveIconSize(context, mobile: 24, tablet: 28, desktop: 32)
+              ),
             ),
           );
   }

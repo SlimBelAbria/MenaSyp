@@ -101,36 +101,39 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     final isAdmin = user?['role'] == 'admin';
+    final screenSize = MediaQuery.of(context).size;
+    final isTablet = screenSize.width > 600;
+    final isLargeScreen = screenSize.width > 900;
 
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(isTablet ? 24.0 : 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildAppBar(isAdmin),
-              const SizedBox(height: 20),
-              const Text(
+              _buildAppBar(isAdmin, isTablet),
+              SizedBox(height: isTablet ? 24.0 : 20.0),
+              Text(
                 'MENASYP 2025 Schedule',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: isTablet ? 28.0 : 24.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: isTablet ? 12.0 : 8.0),
               Text(
                 'August 27-30, 2025 • Tunis, Tunisia',
                 style: TextStyle(
                   color: Colors.grey[400],
-                  fontSize: 14,
+                  fontSize: isTablet ? 16.0 : 14.0,
                 ),
               ),
-              const SizedBox(height: 20),
-              _buildDaySelector(),
-              const SizedBox(height: 20),
+              SizedBox(height: isTablet ? 24.0 : 20.0),
+              _buildDaySelector(isTablet),
+              SizedBox(height: isTablet ? 24.0 : 20.0),
               _isLoading
                   ? const Expanded(
                       child: Center(
@@ -140,7 +143,7 @@ class _SchedulePageState extends State<SchedulePage> {
                         ),
                       ),
                     )
-                  : Expanded(child: _buildDayContent(_selectedDay)),
+                  : Expanded(child: _buildDayContent(_selectedDay, isTablet)),
             ],
           ),
         ),
@@ -155,17 +158,17 @@ class _SchedulePageState extends State<SchedulePage> {
     );
   }
 
-  Widget _buildAppBar(bool isAdmin) {
+  Widget _buildAppBar(bool isAdmin, bool isTablet) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset('assets/logo_horizontal.png', height: 40),
+        Image.asset('assets/logo_horizontal.png', height: isTablet ? 48 : 40),
         Row(
           children: [
 
-            IconButton(
-              icon: const Icon(Icons.info_outline, color: Colors.white70, size: 26),
-              onPressed: () {
+                          IconButton(
+                icon: Icon(Icons.info_outline, color: Colors.white70, size: isTablet ? 32 : 26),
+                onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const TunisiaGuidePage()),
                 );
@@ -174,9 +177,9 @@ class _SchedulePageState extends State<SchedulePage> {
             const SizedBox(width: 8),
             Stack(
               children: [
-                IconButton(
-                  icon: const Icon(Iconsax.notification, color: Colors.white70, size: 26),
-                  onPressed: () async {
+                                  IconButton(
+                    icon: Icon(Iconsax.notification, color: Colors.white70, size: isTablet ? 32 : 26),
+                    onPressed: () async {
                     try {
                       final userRole = Provider.of<UserProvider>(context, listen: false).user?['role'];
                       final notifications = await NotificationsProvider.fetchNotificationsWithIndex();
@@ -245,22 +248,21 @@ class _SchedulePageState extends State<SchedulePage> {
     );
   }
 
-  Widget _buildDaySelector() {
+  Widget _buildDaySelector(bool isTablet) {
     return SizedBox(
-      height: 80,
+      height: isTablet ? 100 : 80,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _DayChip(day: "Day 1", date: "27 Aug", isActive: _selectedDay == 0, onTap: () => setState(() => _selectedDay = 0)),
-          _DayChip(day: "Day 2", date: "28 Aug", isActive: _selectedDay == 1, onTap: () => setState(() => _selectedDay = 1)),
-          _DayChip(day: "Day 3", date: "29 Aug", isActive: _selectedDay == 2, onTap: () => setState(() => _selectedDay = 2)),
-          _DayChip(day: "Day 4", date: "30 Aug", isActive: _selectedDay == 3, onTap: () => setState(() => _selectedDay = 3)),
+          _DayChip(day: "Day 1", date: "27 Aug", isActive: _selectedDay == 0, onTap: () => setState(() => _selectedDay = 0), isTablet: isTablet),
+          _DayChip(day: "Day 2", date: "28 Aug", isActive: _selectedDay == 1, onTap: () => setState(() => _selectedDay = 1), isTablet: isTablet),
+          _DayChip(day: "Day 3", date: "29 Aug", isActive: _selectedDay == 2, onTap: () => setState(() => _selectedDay = 2), isTablet: isTablet),
         ],
       ),
     );
   }
 
-  Widget _buildDayContent(int dayIndex) {
+  Widget _buildDayContent(int dayIndex, bool isTablet) {
     final dayEvents = _events.where((e) => e['day'] == (dayIndex + 1).toString()).toList();
     dayEvents.sort((a, b) => _compareTime(a['time'], b['time']));
 
@@ -272,6 +274,7 @@ class _SchedulePageState extends State<SchedulePage> {
           event: event,
           onDelete: () => _deleteEvent(event['id']),
           isAdmin: Provider.of<UserProvider>(context).user?['role'] == 'admin',
+          isTablet: isTablet,
         );
       },
     );
@@ -404,7 +407,6 @@ class _SchedulePageState extends State<SchedulePage> {
                   DropdownMenuItem(value: '1', child: Text('Day 1 (27 Aug)')),
                   DropdownMenuItem(value: '2', child: Text('Day 2 (28 Aug)')),
                   DropdownMenuItem(value: '3', child: Text('Day 3 (29 Aug)')),
-                  DropdownMenuItem(value: '4', child: Text('Day 4 (30 Aug)')),
                 ],
                 onChanged: (value) => selectedDay = value!,
               ),
@@ -465,12 +467,14 @@ class _DayChip extends StatelessWidget {
   final String date;
   final bool isActive;
   final VoidCallback onTap;
+  final bool isTablet;
 
   const _DayChip({
     required this.day,
     required this.date,
     this.isActive = false,
     required this.onTap,
+    this.isTablet = false,
   });
 
   @override
@@ -478,11 +482,11 @@ class _DayChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 90,
-        margin: const EdgeInsets.only(right: 12),
+        width: isTablet ? 110 : 90,
+        margin: EdgeInsets.only(right: isTablet ? 16 : 12),
         decoration: BoxDecoration(
           color: isActive ? const Color(0xffFF2057) : const Color(0xFF1E1E1E),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(isTablet ? 20 : 16),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -492,15 +496,15 @@ class _DayChip extends StatelessWidget {
               style: TextStyle(
                 color: isActive ? Colors.white : Colors.grey[400],
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: isTablet ? 18 : 16,
               ),
             ),
-            const SizedBox(height: 4),
+            SizedBox(height: isTablet ? 6 : 4),
             Text(
               date,
               style: TextStyle(
                 color: isActive ? Colors.white : Colors.grey[400],
-                fontSize: 12,
+                fontSize: isTablet ? 14 : 12,
               ),
             ),
           ],
@@ -514,11 +518,13 @@ class _ScheduleItem extends StatelessWidget {
   final Map<String, dynamic> event;
   final VoidCallback? onDelete;
   final bool isAdmin;
+  final bool isTablet;
 
   const _ScheduleItem({
     required this.event,
     this.onDelete,
     required this.isAdmin,
+    required this.isTablet,
   });
 
   IconData _getIconForType(String type) {
@@ -539,29 +545,30 @@ class _ScheduleItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: isTablet ? 20 : 16),
       decoration: BoxDecoration(
         color: const Color(0xFF1A1A1A),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(isTablet ? 20 : 16),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(isTablet ? 20 : 16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 50,
-              height: 50,
+              width: isTablet ? 60 : 50,
+              height: isTablet ? 60 : 50,
               decoration: BoxDecoration(
                 color: const Color(0xffFF2057).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(isTablet ? 16 : 12),
               ),
               child: Icon(
                 _getIconForType(event['type'] ?? 'general'),
                 color: const Color(0xffFF2057),
+                size: isTablet ? 28 : 24,
               ),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: isTablet ? 20 : 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -570,25 +577,25 @@ class _ScheduleItem extends StatelessWidget {
                     event['time'] ?? '',
                     style: TextStyle(
                       color: Colors.grey[400],
-                      fontSize: 12,
+                      fontSize: isTablet ? 14 : 12,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: isTablet ? 6 : 4),
                   Text(
                     event['name'] ?? '',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: isTablet ? 18 : 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   if (event['description']?.isNotEmpty ?? false) ...[
-                    const SizedBox(height: 4),
+                    SizedBox(height: isTablet ? 6 : 4),
                     Text(
                       event['description'] ?? '',
                       style: TextStyle(
                         color: Colors.grey[400],
-                        fontSize: 12,
+                        fontSize: isTablet ? 14 : 12,
                       ),
                     ),
                   ],
@@ -597,7 +604,7 @@ class _ScheduleItem extends StatelessWidget {
             ),
             if (isAdmin)
               IconButton(
-                icon: const Icon(Icons.delete, color: Colors.red),
+                icon: Icon(Icons.delete, color: Colors.red, size: isTablet ? 28 : 24),
                 onPressed: onDelete,
               ),
           ],

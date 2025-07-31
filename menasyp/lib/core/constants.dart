@@ -152,9 +152,7 @@ class AppStrings {
   static const String day1 = 'Day 1';
   static const String day2 = 'Day 2';
   static const String day3 = 'Day 3';
-  static const String day4 = 'Day 4';
   static const String date27Aug = '27 Aug';
   static const String date28Aug = '28 Aug';
   static const String date29Aug = '29 Aug';
-  static const String date30Aug = '30 Aug';
 }
