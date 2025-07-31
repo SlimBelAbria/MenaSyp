@@ -6,8 +6,8 @@ class GoogleSheetApi {
   {
   "type": "service_account",
   "project_id": "menasyp",
-  "private_key_id": "562be57798c017218f02ad815117c997e9df0501",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDZEKd0825OW6lO\nbEH4LQyj1hu/aX1njlMYiH2oCDI0TzAYN+ACJQQLlamTdZnqF2KHqVpnj3EvIJ/x\n1Nfx3+D8NceiaDngod8gqOVkRqJVDUXYFask8bUryf8v/t5IWINZ3/aK7d+kN2MN\nyd/lNlSWTJHyhVSCpZLKxqqR3URQmq8ToJXGivGtroWqdLfW/SJhWQkIefwtfnrw\nM6aaHPci5I6MVJnho7Xq5EldnxfRDW7aSoDBCoLG8jHP7eaMTphNs1GB49n8iV8T\nQ2Q2sxp3onOym8QoR0dtB6TbB6r0ZG/5FDN9ySARz6fN9U6o/tYvs0Tf0qQuQSxB\nk4z4z/+BAgMBAAECggEAA9jwWOm0LbIg+f1//VfCErjZsM68POzIQwXvUT5E8omp\nSPKblzoj/FcUpIMX/W7Y7Z3mNvHzUAIoZ5tN0REWbi3/Wfz2Mqm32F66Aykf2TlV\nILeAmzToEMzBp86BDt/3wwzt1ChTd5gOOsk2XVwVS30ztIxhszefVpYHIbL98h5F\nasMz4RGFl/RwnEj+vfiRZydCoNYXUWFebneIyHvaJH1R4Ex1HI1spT37jiAhKD5s\nru/3LiCH3Q3EVhjLGcu8YwoFoMvuz4bFPUM7sIUvyovD9z2eWuJKpKsvXJBt0k9L\nR2q5i6sBcXxPjtV417lZ0WmABEhy8a+MSi1G1cA82QKBgQDwBKADqXk04IB0j9O2\naB8e37KkTrMwmtlFzvlhNwiolePdZESaIjhlvehf9wFHGjJBd82d017W5VpHW4cW\nU+Mf/vSeETJbqev3+5OFPrvFQUhsb8S60xkWrlZo/W3qJ1PVONw7rDrutF73Bawm\nGqWXr5bGlLax8BWd6G5163yA+QKBgQDnhMT7SSPF5beuKJKCci/wx8cc8V/X5JX8\n1MNSBwNPRj29VX9k0VhC/7Hvmk9oVjN7wrTWWKWHxnUz2BFfSHYCCkgZYPpOQtb5\nR8qML/FQXiU+mlcVkDXQquVY5qeigEqu0GpxjC3jrsKGYdtsxp0Ag/P1fBGe9tnh\n/QLRde+cyQKBgEs7R+Sd9E3sqJbglh2wmUCWIWp6+JOdlcjZzTT5iQ8+nEPCr/YY\nD9FkKzgZNh9RSLtYj+yOWkXFcfy35anL9X8L7SS2gzBUHJCIHH9BYJ29jrPefK2K\niWygjJkwBonEdfR5dB6IJ5i2lKWc846l/42CDiKEbpdrh3sNZcI0Y7wRAoGAI5Z7\nGQ1jHFZ1Z6YA72BSEjcDWmWYD/2pOJYT+BXv4k2vy9zKmlq7sIDRfz0/G5C0lT+W\nwKQbvcU52uBJu1XOHf4qmwwXLdSEawkoD2iHNY1jOD5NSJlETHEYlBPQjOAfmsOa\nuR2NKESCzllYe14EYEHoTEHoC4FyeJSFzGDOllECgYBMAzJ1qT2FgrQjwWH3kbeZ\nKJw0IG6ivkCLUbYRxn+9CLLwM4qhFVrTQMKYnDKT7egWweux5G4oX8kQDl+diSCA\n+1cIIY+2BWigwCm4TKrEAHfoWIbbiApOKXyGon8QvmHwiTh2/bU1wHDvF2wZX4g7\nTmLxQGZBqtSkxyMLiHfPXg==\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "4d5647e9278a99545a2ca5ee67447c6ba18cbd61",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDppjC+PNkhrnQ+\nOai8cB/+2WCfUpIS7I+ai+M8OtXKyvNiL8Q9OeqPSywXcMpSLuGgoDMFF+X3JMyy\nDL74sNMuDmWEs3fbT9V0q29hKJ338IeDJaRb2+E/h+GkqO5Y8a4RbftLHEx+b68V\nUiUdXLaB8f9A2+CYSjfiv72LJYAyCfjnsk0nYJWnNC5tv67ocbtYDk2fzIVj6KK/\nssfS4CJdhyK3D1bdiWXsEwp27F2DDXReAcbZRkrqb12vOH/ytF4HpRvbC5VcIDiZ\nKqLrRH+tIeatHzfHJ/oJeespL+pQWzQjE4LMbywtfObJlnmoGQG1AQz6o0oBpJ7t\nMKqfG/sJAgMBAAECggEABev1Xkzyf90JCy6w7R22YeImhcM0+o/OT+9tsfAXzQz5\nwCpPwfF+1WTlWC6+ofiYNVb6FA34ARyIp5aVHH52y7sHraZSylcqpMtXhlHeNxN8\ni8FfegiHm/GYsXCqocx2SfDMpqmv8qBoApVTZXwdEAwPGRi5h4KSCggsCKPJrPrx\nUT+choOlkcM8+sIVgiIZdpH7Fdx3O2xhg/lcVxFhQdvGXiGLFvlYtkCZPraC6MVt\nGNaa7qvuMnUfHLBOVFQ85bsS6tbyFeWM2DElJRIpyX1rdaeUr2c99WLIarF1XgzU\nh9uAQt7AqXVINlFiJONcMm2LE2lRQq5P5yjgIyPCRQKBgQD9o/HC4BWPcvNHTJr9\nDA5rfG4wLIRYLIycyE9g3NnGpBACJxrQuyxmQfpmKyC6kyT2O+8SrzQC+TPWZ0vn\nsbSleDirXKZYrssw1tyh4PkD8d7+IWdW5uqj5LB4iVi5ZHoHSpK8BPYQhuupzJ6M\nWpQPlkrofxhi9vO+8yiD24udBwKBgQDr0qLUPRgmgc68l4A0D+0BxJew+KscICV5\nCtO1znVHCP0GrxoYoF6WnRobO1d8NV3NKHAjZjNwG+AzAR3pYR+W906/ayasmG1r\n+rc4B3kgPDs1wB09WlEpqMHFn7SocXmDqmpBjw/CYV/Qs1wJT8DjDGkoMET7FAEV\nYo/jkEGzbwKBgQDL9nMqT4Jm+XwSoNKdnH1YCBafnJzMPv7P8PCMJuzlJPdOk92n\nbmy0ymeukw3dmwgFDosgzk0X+wepaSWL6sYmrfd8LaQC+oShAJcpgb0dY/n7CCeO\npWCYbQVP2LrFUrwicuBuW9r3zVdjEw2INiqMIkKYleOpaYb2zZiN+BVcLwKBgBZl\nWrFtW+3MRiYC/Vn0aT3RvdZAx39UTjrAnHqXsOueHumTl5bfJByJrwEHEbfqGY5y\nWLQD8L6k5xXw9TZE0wszUXc8Zd/eWgX3OY9Ipmg5UCY6qIw7F5otPLnYAQA+RpwK\ngyzWuVhshvz7C7KWsGrfstzuOJ7ft3qgcana+WJhAoGBAMmLl6Z4FMuW8P/XYS9r\ndS5iTyQZR1aeX4J3SWIrC/rIkXVeCKULcnCcl0Ba7AbwPzQgMxVswGn1dy4cayjj\n252cz8i4/f04QS4WW4zbmTREY2qpJSok8kVQhJsTIPslIi7CD4DXypLtVagnGvat\nwCCOlYGmaPuSi/XEU5KduJHc\n-----END PRIVATE KEY-----\n",
   "client_email": "menasyp@menasyp.iam.gserviceaccount.com",
   "client_id": "109349994561861527005",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -16,6 +16,7 @@ class GoogleSheetApi {
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/menasyp%40menasyp.iam.gserviceaccount.com",
   "universe_domain": "googleapis.com"
 }
+
   ''';
 
   static final _gsheets = GSheets(_credentials);
@@ -54,7 +55,7 @@ class GoogleSheetApi {
 
       final complaintsFirstRow = await _complaintsSheet?.values.row(1);
       if (complaintsFirstRow == null || complaintsFirstRow.isEmpty) {
-        await _complaintsSheet?.values.insertRow(1, ['id', 'message', 'title', 'type', 'timestamp']);
+        await _complaintsSheet?.values.insertRow(1, ['id', 'message', 'title', 'type', 'timestamp', 'status']);
       }
     } catch (e) {
       throw Exception('Failed to initialize Google Sheets: $e');
@@ -333,7 +334,7 @@ class GoogleSheetApi {
     try {
       if (_complaintsSheet == null) await init();
       final id = DateTime.now().millisecondsSinceEpoch.toString();
-      final row = [id, message, title, type, DateTime.now().toIso8601String()];
+      final row = [id, message, title, type, DateTime.now().toIso8601String(), 'ongoing'];
       await _complaintsSheet!.values.appendRow(row);
       return true;
     } catch (e) {
@@ -354,6 +355,35 @@ class GoogleSheetApi {
       for (var i = 1; i < data.length; i++) {
         if (data[i][idIndex] == id) {
           await _complaintsSheet!.deleteRow(i + 1);
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static Future<bool> updateComplaintStatus(String id, String status) async {
+    try {
+      if (_complaintsSheet == null) await init();
+      final data = await _complaintsSheet!.values.allRows();
+      if (data.isEmpty) return false;
+
+      final headers = data[0];
+      final idIndex = headers.indexWhere((h) => h.toLowerCase() == 'id');
+      final statusIndex = headers.indexWhere((h) => h.toLowerCase() == 'status');
+      
+      if (idIndex == -1 || statusIndex == -1) return false;
+
+      for (var i = 1; i < data.length; i++) {
+        if (data[i][idIndex] == id) {
+          // Update the status in the specific cell
+          await _complaintsSheet!.values.insertValue(
+            status,
+            column: statusIndex + 1,
+            row: i + 1,
+          );
           return true;
         }
       }

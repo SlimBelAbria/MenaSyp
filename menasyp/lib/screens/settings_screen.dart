@@ -504,6 +504,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         DropdownMenuItem(value: 'App Bug', child: Text('App Bug')),
                         DropdownMenuItem(value: 'Content Issue', child: Text('Content Issue')),
                         DropdownMenuItem(value: 'User Experience', child: Text('User Experience')),
+                        DropdownMenuItem(value: 'Accommodation Issue', child: Text('Accommodation Issue')),
                         DropdownMenuItem(value: 'Other', child: Text('Other')),
                       ],
                       onChanged: (value) => selectedType = value!,

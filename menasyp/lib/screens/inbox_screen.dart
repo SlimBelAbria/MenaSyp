@@ -228,6 +228,22 @@ class _InboxScreenState extends State<InboxScreen> {
                   ),
                 ),
                 const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: (complaint['status'] == 'finished' ? Colors.green : Colors.red).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    complaint['status'] ?? 'ongoing',
+                    style: TextStyle(
+                      color: complaint['status'] == 'finished' ? Colors.green : Colors.red,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
                 Text(
                   'ID: ${complaint['id']}',
                   style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 12),
@@ -243,9 +259,29 @@ class _InboxScreenState extends State<InboxScreen> {
             ],
           ],
         ),
-        trailing: IconButton(
-          icon: const Icon(Icons.delete, color: Colors.red),
-          onPressed: () => _deleteComplaint(complaint['id']),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(
+                (complaint['status'] == 'finished' ? Icons.refresh : Icons.check_circle),
+                color: complaint['status'] == 'finished' ? Colors.orange : Colors.green,
+              ),
+              onPressed: () => _changeComplaintStatus(
+                complaint['id'],
+                complaint['status'] ?? 'ongoing',
+              ),
+              tooltip: complaint['status'] == 'finished' ? 'Mark as Ongoing' : 'Mark as Finished',
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete, color: Colors.red),
+              onPressed: () => _deleteComplaint(complaint['id']),
+            ),
+          ],
+        ),
+        onTap: () => _changeComplaintStatus(
+          complaint['id'],
+          complaint['status'] ?? 'ongoing',
         ),
       ),
     );
@@ -329,6 +365,45 @@ class _InboxScreenState extends State<InboxScreen> {
             SnackBar(content: Text('Failed to delete complaint: $e')),
           );
         }
+      }
+    }
+  }
+
+  Future<void> _changeComplaintStatus(String? id, String currentStatus) async {
+    if (id == null) return;
+    
+    final newStatus = currentStatus == 'ongoing' ? 'finished' : 'ongoing';
+    
+    try {
+      final success = await GoogleSheetApi.updateComplaintStatus(id, newStatus);
+      if (success) {
+        await _loadData(); // Reload data
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Status changed to $newStatus'),
+              backgroundColor: newStatus == 'finished' ? Colors.green : Colors.orange,
+            ),
+          );
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed to update status'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error updating status: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }
