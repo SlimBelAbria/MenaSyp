@@ -137,31 +137,32 @@ class _SchedulePageState extends State<SchedulePage> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      _loadEvents();
-                    },
-                    icon: const Icon(Icons.refresh, color: Colors.white, size: 18),
-                    label: const Text(
-                      'Try Again',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00629B),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
+                                 Expanded(
+                   child: ElevatedButton.icon(
+                     onPressed: () {
+                       Navigator.of(context).pop();
+                       _loadEvents();
+                     },
+                     icon: const Icon(Icons.refresh, color: Colors.white, size: 18),
+                     label: const Text(
+                       'Try Again',
+                       style: TextStyle(
+                         color: Colors.white,
+                         fontSize: 16,
+                         fontWeight: FontWeight.w600,
+                       ),
+                     ),
+                     style: ElevatedButton.styleFrom(
+                       backgroundColor: const Color(0xFF101010),
+                       foregroundColor: Colors.white,
+                       elevation: 2,
+                       padding: const EdgeInsets.symmetric(vertical: 12),
+                       shape: RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(12),
+                       ),
+                     ),
+                   ),
+                 ),
               ],
             ),
           ],
