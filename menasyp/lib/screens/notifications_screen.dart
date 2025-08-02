@@ -222,6 +222,85 @@ class NotificationsWidgetState extends State<NotificationsWidget> {
     );
   }
 
+  Widget _buildErrorWidget(String errorMessage) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.red.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.sentiment_dissatisfied_outlined,
+                color: Colors.red[400],
+                size: 48,
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Something Went Wrong',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 24,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'We couldn\'t load notifications right now.',
+              style: TextStyle(
+                color: Colors.grey[300],
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Please check your connection and try again.',
+              style: TextStyle(
+                color: Colors.grey[400],
+                fontSize: 14,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: () {
+                setState(() {
+                  notificationsFuture = _fetchNotifications();
+                });
+              },
+              icon: const Icon(Icons.refresh, color: Colors.white, size: 20),
+              label: const Text(
+                'Try Again',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF101010),
+                foregroundColor: Colors.white,
+                elevation: 2,
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -238,7 +317,7 @@ class NotificationsWidgetState extends State<NotificationsWidget> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: SpinKitFadingCircle(color: Color(0xffFF2057), size: 50.0));
           } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}", style: const TextStyle(color: Colors.white)));
+            return _buildErrorWidget(snapshot.error.toString());
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("No notifications available", style: TextStyle(color: Colors.white70)));
           }
